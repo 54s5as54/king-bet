@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KING BET | Premium</title>
+    <title>KING BET | Official</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --netflix-red: #E50914;
-            --text-white: #ffffff;
-            --green: #46d369;
-            --gold: #ffd700;
+        :root { 
+            --netflix-red: #E50914; --text-white: #ffffff; --green: #46d369; --gold: #ffd700;
             --bg-home: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             --bg-board: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             --bg-depo: linear-gradient(135deg, #1d976c, #93f9b9);
@@ -19,341 +15,82 @@
             --bg-wit: linear-gradient(135deg, #373b44, #4286f4);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background: #121212; color: var(--text-white); padding-left: 110px; overflow-x: hidden; }
 
-        body {
-            background: #121212;
-            color: var(--text-white);
-            padding-left: 110px;
-            overflow-x: hidden;
+        header { 
+            background: rgba(0,0,0,0.85); padding: 15px 20px; display: flex; 
+            justify-content: space-between; align-items: center; position: sticky; top: 0; 
+            z-index: 1000; border-bottom: 3px solid #ff0000;
         }
+        .logo-text { font-weight: 900; font-size: 28px; color: var(--netflix-red); text-transform: uppercase; cursor: pointer; }
+        .bal-val { background: rgba(0,0,0,0.6); border: 2px solid var(--gold); color: var(--gold); padding: 5px 15px; border-radius: 30px; font-weight: bold; }
 
-        header {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid #ff0000;
+        nav { 
+            position: fixed; left: 0; top: 0; width: 110px; height: 100vh; 
+            background: rgba(0,0,0,0.95); display: flex; flex-direction: column; 
+            justify-content: space-around; padding: 40px 0; border-right: 3px solid #ff0000; z-index: 2000; 
         }
-
-        .logo-text {
-            font-weight: 900;
-            font-size: 28px;
-            color: var(--netflix-red);
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        .bal-val {
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-weight: bold;
-        }
-
-        nav {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 110px;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            padding: 40px 0;
-            border-right: 3px solid #ff0000;
-            z-index: 2000;
-        }
-
-        .nav-link {
-            color: #777;
-            text-align: center;
-            font-size: 11px;
-            cursor: pointer;
-            transform: scale(1.35);
-            font-weight: bold;
-            position: relative;
-        }
-
-        .nav-link.active {
-            color: #fff;
-        }
-
-        .nav-link i {
-            font-size: 26px !important;
-            display: block;
-            margin-bottom: 5px;
-        }
+        .nav-link { color: #777; text-align: center; font-size: 11px; cursor: pointer; transform: scale(1.35); font-weight: bold; position: relative; }
+        .nav-link.active { color: #fff; }
+        .nav-link i { font-size: 26px !important; display: block; margin-bottom: 5px; }
 
         .badge {
-            position: absolute;
-            top: -5px;
-            right: 15px;
-            background: red;
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 50%;
-            font-weight: 900;
-            display: none;
-            border: 1.5px solid white;
+            position: absolute; top: -5px; right: 15px; background: red; color: white;
+            font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: 900;
+            display: none; border: 1.5px solid white;
         }
 
-        .screen {
-            display: none;
-            min-height: 100vh;
-            padding: 25px;
-            animation: fadeIn 0.4s ease;
+        .screen { display: none; min-height: 100vh; padding: 25px; animation: fadeIn 0.4s ease; }
+        .active { display: block; }
+
+        .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        .game-card { 
+            background: rgba(0,0,0,0.7); height: 130px; border-radius: 15px; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            font-weight: bold; border: 2px solid rgba(255,255,255,0.1); cursor: pointer;
+        }
+        .game-card i { font-size: 35px; margin-bottom: 10px; color: var(--gold); }
+
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #000; font-size: 13px;}
+        input, select { 
+            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #ccc; 
+            background: #fff; color: #000; font-weight: 600; font-size: 16px;
         }
 
-        .active {
-            display: block;
-        }
-
-        .game-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .game-card {
-            background: rgba(0, 0, 0, 0.7);
-            height: 130px;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
-
-        .game-card i {
-            font-size: 35px;
-            margin-bottom: 10px;
-            color: var(--gold);
-        }
-
-        .input-group {
-            margin-bottom: 12px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #000;
-            font-size: 13px;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid #ccc;
-            background: #fff;
-            color: #000;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .btn-main {
-            width: 100%;
-            padding: 18px;
-            background: #000;
-            color: #fff;
-            border: 2px solid #fff;
-            border-radius: 12px;
-            font-weight: 900;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+        .btn-main { width: 100%; padding: 18px; background: #000; color: #fff; border: 2px solid #fff; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 10px; }
 
         /* Crash Game UI */
-        .game-ov {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.98);
-            z-index: 5000;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+        .game-ov { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 5000; display: none; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        #history-bar { width: 90%; max-width: 400px; display: flex; gap: 5px; overflow-x: auto; margin-bottom: 10px; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 10px; min-height: 45px; align-items: center; }
+        .hist-item { padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; white-space: nowrap; }
+        .hist-win { background: var(--green); color: black; }
+        .hist-loss { background: var(--netflix-red); color: white; }
 
-        #history-bar {
-            width: 90%;
-            max-width: 400px;
-            display: flex;
-            gap: 5px;
-            overflow-x: auto;
-            margin-bottom: 10px;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            min-height: 45px;
-            align-items: center;
-        }
+        #game-area { position: relative; width: 100%; height: 350px; border-bottom: 2px dashed #444; margin-bottom: 10px; overflow: hidden; }
+        #plane-icon { position: absolute; bottom: 20px; left: 10%; font-size: 45px; color: #ff0000; text-shadow: 0 0 15px red; transition: all 0.1s linear; transform: rotate(-10deg); z-index: 5; }
+        #mult-text { font-size: 70px; font-weight: 900; color: var(--gold); z-index: 10; text-shadow: 0 0 20px rgba(0,0,0,0.8); position: absolute; top: 40%; width: 100%; text-align: center; }
 
-        .hist-item {
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        .hist-win {
-            background: var(--green);
-            color: black;
-        }
-
-        .hist-loss {
-            background: var(--netflix-red);
-            color: white;
-        }
-
-        #game-area {
-            position: relative;
-            width: 100%;
-            height: 350px;
-            border-bottom: 2px dashed #444;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        #plane-icon {
-            position: absolute;
-            bottom: 20px;
-            left: 10%;
-            font-size: 45px;
-            color: #ff0000;
-            text-shadow: 0 0 15px red;
-            transition: all 0.1s linear;
-            transform: rotate(-10deg);
-            z-index: 5;
-        }
-
-        #mult-text {
-            font-size: 70px;
-            font-weight: 900;
-            color: var(--gold);
-            z-index: 10;
-            text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-            position: absolute;
-            top: 40%;
-            width: 100%;
-            text-align: center;
-        }
-
-        .quick-bet-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .q-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 12px;
-        }
+        .quick-bet-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+        .q-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; }
 
         /* Admin/Request Cards */
-        .req-card {
-            background: #fff;
-            color: #333;
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            border-top: 5px solid var(--netflix-red);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
+        .req-card { background: #fff; color: #333; padding: 15px; border-radius: 15px; margin-bottom: 15px; border-top: 5px solid var(--netflix-red); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .adm-btn-row { display: flex; gap: 10px; margin-top: 12px; }
+        .btn-approve { background: #2ecc71; color: white; border: none; padding: 12px; border-radius: 8px; flex: 1; font-weight: bold; cursor: pointer; }
+        .btn-reject { background: #e74c3c; color: white; border: none; padding: 12px; border-radius: 8px; flex: 1; font-weight: bold; cursor: pointer; }
 
-        .adm-btn-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .btn-approve {
-            background: #2ecc71;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            flex: 1;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-reject {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            flex: 1;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .notif-item {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            border-left: 6px solid var(--gold);
-        }
+        .notif-item { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 6px solid var(--gold); }
 
         @media (max-width: 600px) {
-            body {
-                padding-left: 0;
-                padding-bottom: 120px;
-            }
-
-            nav {
-                left: 0;
-                top: auto;
-                bottom: 0;
-                width: 100%;
-                height: 110px;
-                flex-direction: row;
-                border-right: none;
-                border-top: 3px solid #ff0000;
-                padding: 10px 0;
-            }
-
-            .badge {
-                right: 25px;
-                top: 5px;
-            }
+            body { padding-left: 0; padding-bottom: 120px; }
+            nav { left: 0; top: auto; bottom: 0; width: 100%; height: 110px; flex-direction: row; border-right: none; border-top: 3px solid #ff0000; padding: 10px 0; }
+            .badge { right: 25px; top: 5px; }
         }
     </style>
 </head>
-
-<body>
+<body onload="loadData()">
 
     <header>
         <div class="logo-text" onclick="unlockAdmin()">KING BET</div>
@@ -362,8 +99,7 @@
 
     <div id="scr-profile" class="screen" style="background:var(--bg-board);">
         <h2>💎 BOARD</h2>
-        <div
-            style="background:rgba(255,255,255,0.1); padding:40px; border-radius:20px; text-align:center; border: 2px solid white; margin-top:20px;">
+        <div style="background:rgba(255,255,255,0.1); padding:40px; border-radius:20px; text-align:center; border: 2px solid white; margin-top:20px;">
             <p>Your Balance</p>
             <h1 id="stat-bal" style="font-size:50px; color:var(--gold);">Rs 0</h1>
             <p style="color:var(--green); font-weight:bold; margin-top:10px;">VIP STATUS: ONLINE</p>
@@ -372,14 +108,12 @@
 
     <div id="scr-deposit" class="screen" style="background:var(--bg-depo); color:#000;">
         <h2>💰 DEPOSIT</h2>
-        <div style="background:rgba(0,0,0,0.1); padding:10px; border-radius:12px; text-align:center; border: 2px dashed #000; margin-bottom:15px;"
-            onclick="copyNum()">
+        <div style="background:rgba(0,0,0,0.1); padding:10px; border-radius:12px; text-align:center; border: 2px dashed #000; margin-bottom:15px;" onclick="copyNum()">
             <p>Admin Account: <b>03182452810</b></p>
             <small>(Tap to copy)</small>
         </div>
         <div class="input-group"><label>Customer Name</label><input type="text" id="dep-name" placeholder="Name"></div>
-        <div class="input-group"><label>Bank Name</label><input type="text" id="dep-bank"
-                placeholder="EasyPaisa/JazzCash"></div>
+        <div class="input-group"><label>Bank Name</label><input type="text" id="dep-bank" placeholder="EasyPaisa/JazzCash"></div>
         <div class="input-group"><label>Number</label><input type="number" id="dep-num" placeholder="03XXXXXXXXX"></div>
         <div class="input-group"><label>TID</label><input type="text" id="dep-tid" placeholder="TID"></div>
         <div class="input-group"><label>Amount (Rs)</label><input type="number" id="dep-amt" placeholder="Amount"></div>
@@ -405,15 +139,10 @@
 
     <div id="scr-withdraw" class="screen" style="background:var(--bg-wit);">
         <h2>💸 WITHDRAW</h2>
-        <div class="input-group"><label>Select Bank</label><select id="wit-bank">
-                <option>EasyPaisa</option>
-                <option>JazzCash</option>
-            </select></div>
+        <div class="input-group"><label>Select Bank</label><select id="wit-bank"><option>EasyPaisa</option><option>JazzCash</option></select></div>
         <div class="input-group"><label>Account Name</label><input type="text" id="wit-name" placeholder="Name"></div>
-        <div class="input-group"><label>Account Number</label><input type="number" id="wit-num" placeholder="Number">
-        </div>
-        <div class="input-group"><label>Withdraw Amount</label><input type="number" id="wit-amt" placeholder="Amount">
-        </div>
+        <div class="input-group"><label>Account Number</label><input type="number" id="wit-num" placeholder="Number"></div>
+        <div class="input-group"><label>Withdraw Amount</label><input type="number" id="wit-amt" placeholder="Amount"></div>
         <button class="btn-main" onclick="submitWithdraw()">REQUEST WITHDRAW</button>
     </div>
 
@@ -423,17 +152,14 @@
     </div>
 
     <div id="crash-ui" class="game-ov">
-        <div style="position:absolute; top:20px; right:20px; font-size:35px; cursor:pointer; z-index:100;"
-            onclick="closeGame()">×</div>
+        <div style="position:absolute; top:20px; right:20px; font-size:35px; cursor:pointer; z-index:100;" onclick="closeGame()">×</div>
         <div id="history-bar"></div>
         <div id="game-area">
             <div id="mult-text">1.00x</div>
             <i class="fa fa-plane" id="plane-icon"></i>
         </div>
-        <div
-            style="width:90%; max-width:400px; padding:15px; background:rgba(255,255,255,0.05); border-radius:20px; text-align:center;">
-            <input type="number" id="bet-amt" placeholder="Enter Bet Amount"
-                style="text-align:center; margin-bottom:10px; border:2px solid var(--gold);">
+        <div style="width:90%; max-width:400px; padding:15px; background:rgba(255,255,255,0.05); border-radius:20px; text-align:center;">
+            <input type="number" id="bet-amt" placeholder="Enter Bet Amount" style="text-align:center; margin-bottom:10px; border:2px solid var(--gold);">
             <div class="quick-bet-grid">
                 <button class="q-btn" onclick="setAmt(60)">60</button>
                 <button class="q-btn" onclick="setAmt(80)">80</button>
@@ -443,8 +169,7 @@
                 <button class="q-btn" onclick="setAmt(6000)">6000</button>
             </div>
             <button id="btn-start" class="btn-main" onclick="runCrash()">PLACE BET</button>
-            <button id="btn-cash" class="btn-main" style="display:none; background:var(--green); border:none;"
-                onclick="cashoutCrash()">CASHOUT</button>
+            <button id="btn-cash" class="btn-main" style="display:none; background:var(--green); border:none;" onclick="cashoutCrash()">CASHOUT</button>
         </div>
     </div>
 
@@ -452,16 +177,27 @@
         <div class="nav-link" onclick="tab('scr-profile', this)"><i class="fa fa-crown"></i>Board</div>
         <div class="nav-link" onclick="tab('scr-deposit', this)"><i class="fa fa-plus-circle"></i>Deposit</div>
         <div class="nav-link active" onclick="tab('scr-home', this)"><i class="fa fa-gamepad"></i>Home</div>
-        <div class="nav-link" onclick="tab('scr-notif', this)"><span id="notif-badge" class="badge">0</span><i
-                class="fa fa-bell"></i>Notif</div>
+        <div class="nav-link" onclick="tab('scr-notif', this)"><span id="notif-badge" class="badge">0</span><i class="fa fa-bell"></i>Notif</div>
         <div class="nav-link" onclick="tab('scr-withdraw', this)"><i class="fa fa-wallet"></i>Withdraw</div>
-        <div id="nav-admin" class="nav-link" style="display:none;" onclick="tab('scr-admin', this)"><span
-                id="admin-badge" class="badge">0</span><i class="fa fa-user-shield"></i>Admin</div>
+        <div id="nav-admin" class="nav-link" style="display:none;" onclick="tab('scr-admin', this)"><span id="admin-badge" class="badge">0</span><i class="fa fa-user-shield"></i>Admin</div>
     </nav>
 
     <script>
         let balance = 0, currentM = 1.00, isLive = false, crashT, betVal = 0;
-        let unreadNotif = 0, unreadAdmin = 0;
+        let unreadNotif = 0;
+
+        function loadData() {
+            balance = parseInt(localStorage.getItem('kingbet_bal')) || 0;
+            document.getElementById('notif-list').innerHTML = localStorage.getItem('kingbet_notifs') || "";
+            document.getElementById('history-bar').innerHTML = localStorage.getItem('kingbet_hist') || "";
+            updateUI();
+        }
+
+        function saveData() {
+            localStorage.setItem('kingbet_bal', balance);
+            localStorage.setItem('kingbet_notifs', document.getElementById('notif-list').innerHTML);
+            localStorage.setItem('kingbet_hist', document.getElementById('history-bar').innerHTML);
+        }
 
         function setAmt(val) { document.getElementById('bet-amt').value = val; }
 
@@ -469,33 +205,31 @@
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-            if (el) el.classList.add('active');
-            if (id === 'scr-notif') { unreadNotif = 0; }
-            if (id === 'scr-admin') { unreadAdmin = 0; }
+            if(el) el.classList.add('active');
+            if(id === 'scr-notif') { unreadNotif = 0; }
             updateUI();
         }
 
-        function updateUI() {
-            document.getElementById('user-bal').innerText = balance;
+        function updateUI() { 
+            document.getElementById('user-bal').innerText = balance; 
             document.getElementById('stat-bal').innerText = "Rs " + balance;
             document.getElementById('notif-badge').innerText = unreadNotif;
             document.getElementById('notif-badge').style.display = unreadNotif > 0 ? 'block' : 'none';
-            document.getElementById('admin-badge').innerText = unreadAdmin;
-            document.getElementById('admin-badge').style.display = unreadAdmin > 0 ? 'block' : 'none';
         }
 
         function pushNotif(title, msg) {
-            unreadNotif++; updateUI();
+            unreadNotif++; 
             document.getElementById('notif-list').insertAdjacentHTML('afterbegin', `<div class="notif-item"><b>${title}</b><p>${msg}</p></div>`);
+            saveData(); updateUI();
         }
 
-        function unlockAdmin() { if (prompt("Pass:") === "ayaz786") document.getElementById('nav-admin').style.display = 'block'; }
+        function unlockAdmin() { if(prompt("Pass:") === "ayaz786") document.getElementById('nav-admin').style.display='block'; }
         function copyNum() { navigator.clipboard.writeText("03182452810"); alert("Copied!"); }
 
         function submitDeposit() {
             let n = document.getElementById('dep-name').value, b = document.getElementById('dep-bank').value, a = document.getElementById('dep-amt').value, t = document.getElementById('dep-tid').value;
-            if (!n || !a || !t) return alert("Fill all details!");
-            let id = Date.now(); unreadAdmin++; updateUI();
+            if(!n || !a || !t) return alert("Fill all details!");
+            let id = Date.now();
             document.getElementById('admin-list').insertAdjacentHTML('afterbegin', `
                 <div class="req-card" id="req-${id}">
                     <b>💰 DEPOSIT REQUEST</b><hr>
@@ -507,13 +241,12 @@
                     </div>
                 </div>`);
             pushNotif("Deposit Sent", `Your Rs ${a} deposit is pending.`);
-            alert("Sent!");
         }
 
         function submitWithdraw() {
             let a = document.getElementById('wit-amt').value, n = document.getElementById('wit-name').value;
-            if (!a || a > balance) return alert("Check Balance!");
-            balance -= a; unreadAdmin++; updateUI();
+            if(!a || a > balance) return alert("Check Balance!");
+            balance -= a; updateUI(); saveData();
             let id = Date.now();
             document.getElementById('admin-list').insertAdjacentHTML('afterbegin', `
                 <div class="req-card" id="req-${id}">
@@ -528,47 +261,48 @@
             pushNotif("Withdraw Sent", `Rs ${a} request is being processed.`);
         }
 
-        function admApproveDep(amt, id) { balance += amt; updateUI(); pushNotif("Deposit Approved ✅", `Rs ${amt} added.`); document.getElementById(`req-${id}`).remove(); }
-        function admRejectDep(id) { pushNotif("Deposit Rejected ❌", `Request was rejected by Admin.`); document.getElementById(`req-${id}`).remove(); }
-        function admApproveWit(id) { pushNotif("Withdraw Paid ✅", `Your withdraw is successful.`); document.getElementById(`req-${id}`).remove(); }
-        function admRejectWit(amt, id) { balance += parseInt(amt); updateUI(); pushNotif("Withdraw Rejected ❌", `Rs ${amt} returned.`); document.getElementById(`req-${id}`).remove(); }
+        function admApproveDep(amt, id) { balance += amt; updateUI(); saveData(); pushNotif("Deposit Approved ✅", `Rs ${amt} added.`); document.getElementById(`req-${id}`).remove(); }
+        function admRejectDep(id) { pushNotif("Deposit Rejected ❌", `Request rejected.`); document.getElementById(`req-${id}`).remove(); }
+        function admApproveWit(id) { pushNotif("Withdraw Paid ✅", `Success!`); document.getElementById(`req-${id}`).remove(); }
+        function admRejectWit(amt, id) { balance += parseInt(amt); updateUI(); saveData(); pushNotif("Withdraw Rejected ❌", `Rs ${amt} returned.`); document.getElementById(`req-${id}`).remove(); }
 
-        function openGame() { if (balance <= 0) alert("No Balance!"); else { document.getElementById('crash-ui').style.display = 'flex'; updateUI(); resetPlane(); } }
-        function closeGame() { document.getElementById('crash-ui').style.display = 'none'; clearInterval(crashT); }
-        function resetPlane() { let p = document.getElementById('plane-icon'); p.style.bottom = "20px"; p.style.left = "10%"; p.style.opacity = "1"; document.getElementById('mult-text').innerText = "1.00x"; document.getElementById('mult-text').style.color = "var(--gold)"; }
-
+        function openGame() { if(balance <= 0) alert("No Balance!"); else { document.getElementById('crash-ui').style.display='flex'; updateUI(); resetPlane(); } }
+        function closeGame() { document.getElementById('crash-ui').style.display='none'; clearInterval(crashT); }
+        function resetPlane() { let p = document.getElementById('plane-icon'); p.style.bottom="20px"; p.style.left="10%"; p.style.opacity="1"; document.getElementById('mult-text').innerText="1.00x"; document.getElementById('mult-text').style.color="var(--gold)"; }
+        
         function runCrash() {
             betVal = parseInt(document.getElementById('bet-amt').value);
-            if (!betVal || betVal > balance) return alert("Insufficient Balance!");
-            balance -= betVal; updateUI(); isLive = true; currentM = 1.00;
-            document.getElementById('btn-start').style.display = 'none'; document.getElementById('btn-cash').style.display = 'block';
+            if(!betVal || betVal > balance) return alert("Insufficient Balance!");
+            balance -= betVal; updateUI(); saveData(); isLive = true; currentM = 1.00;
+            document.getElementById('btn-start').style.display='none'; document.getElementById('btn-cash').style.display='block';
             let crashPoint = (Math.random() * 4 + 1.1).toFixed(2);
             crashT = setInterval(() => {
-                currentM += 0.06;
+                currentM += 0.06; 
                 document.getElementById('mult-text').innerText = currentM.toFixed(2) + "x";
                 let p = document.getElementById('plane-icon');
-                p.style.bottom = (20 + (currentM - 1) * 50) + "px";
-                p.style.left = (10 + (currentM - 1) * 15) + "%";
-                if (currentM >= crashPoint) {
+                p.style.bottom = (20 + (currentM-1)*50) + "px"; 
+                p.style.left = (10 + (currentM-1)*15) + "%";
+                if(currentM >= crashPoint) {
                     clearInterval(crashT); isLive = false;
                     document.getElementById('mult-text').innerText = "BUST!";
                     document.getElementById('mult-text').style.color = "red";
                     p.style.opacity = "0";
                     document.getElementById('history-bar').insertAdjacentHTML('afterbegin', `<div class="hist-item hist-loss">L: Rs ${betVal}</div>`);
-                    setTimeout(() => { document.getElementById('btn-start').style.display = 'block'; document.getElementById('btn-cash').style.display = 'none'; resetPlane(); }, 2000);
+                    saveData();
+                    setTimeout(() => { document.getElementById('btn-start').style.display='block'; document.getElementById('btn-cash').style.display='none'; resetPlane(); }, 2000);
                 }
             }, 100);
         }
 
         function cashoutCrash() {
-            if (!isLive) return; clearInterval(crashT); isLive = false;
-            let win = Math.floor(betVal * currentM); balance += win; updateUI();
+            if(!isLive) return; clearInterval(crashT); isLive = false;
+            let win = Math.floor(betVal * currentM); balance += win; updateUI(); saveData();
             document.getElementById('mult-text').innerText = "WIN Rs " + win;
             document.getElementById('mult-text').style.color = "var(--green)";
             document.getElementById('history-bar').insertAdjacentHTML('afterbegin', `<div class="hist-item hist-win">W: Rs ${win}</div>`);
-            setTimeout(() => { document.getElementById('btn-start').style.display = 'block'; document.getElementById('btn-cash').style.display = 'none'; resetPlane(); }, 2000);
+            saveData();
+            setTimeout(() => { document.getElementById('btn-start').style.display='block'; document.getElementById('btn-cash').style.display='none'; resetPlane(); }, 2000);
         }
     </script>
 </body>
-
 </html>
