@@ -3,281 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KING BET | Ultimate Gaming Network</title>
+    <title>KING BET | Premium VIP Network</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary: #ff0000;
-            --secondary: #ffd700;
-            --dark-bg: #050505;
-            --card-bg: #121212;
-            --glass: rgba(255, 255, 255, 0.05);
+            --p-red: #ff0000;
+            --gold: #ffd700;
+            --bg: #050505;
+            --card: #121212;
             --border: #222;
-            --text-gray: #888;
+            --glass: rgba(255, 255, 255, 0.05);
             --success: #27ae60;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background: var(--dark-bg); 
-            color: #fff; 
-            padding-left: 110px; 
-            min-height: 100vh; 
-            overflow-x: hidden; 
-        }
+        body { background: var(--bg); color: #fff; padding-left: 110px; min-height: 100vh; overflow-x: hidden; }
 
-        /* --- LOADING SCREEN --- */
-        #loader {
-            position: fixed; inset: 0; background: #000; z-index: 9999;
-            display: flex; align-items: center; justify-content: center; flex-direction: column;
-        }
-        .spinner { width: 60px; height: 60px; border: 5px solid #111; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* --- HEADER --- */
+        /* --- UI COMPONENTS --- */
         header {
             height: 90px; background: #000; display: flex; justify-content: space-between; align-items: center;
-            padding: 0 30px; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            padding: 0 30px; border-bottom: 3px solid var(--p-red); position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
-        .logo { font-family: 'Orbitron'; font-weight: 900; font-size: 32px; color: var(--primary); cursor: pointer; text-shadow: 0 0 15px rgba(255,0,0,0.6); }
-        .user-stats { display: flex; align-items: center; gap: 15px; }
-        .balance-box { 
-            background: linear-gradient(90deg, #111, #222); border: 1.5px solid var(--secondary); 
-            padding: 12px 25px; border-radius: 15px; font-weight: 900; color: var(--secondary); 
-            font-size: 20px; box-shadow: inset 0 0 10px rgba(255,215,0,0.1);
+        .logo { font-family: 'Orbitron'; font-weight: 900; font-size: 32px; color: var(--p-red); cursor: pointer; text-shadow: 0 0 15px rgba(255,0,0,0.5); }
+        .bal-display { 
+            background: linear-gradient(90deg, #111, #222); border: 2px solid var(--gold); 
+            padding: 12px 25px; border-radius: 15px; font-weight: 900; color: var(--gold); font-size: 20px;
         }
 
-        /* --- SIDE NAVIGATION --- */
+        /* --- NAVIGATION --- */
         nav { 
-            position: fixed; left: 0; top: 0; width: 110px; height: 100vh; 
-            background: #000; border-right: 2px solid var(--primary); 
-            display: flex; flex-direction: column; justify-content: center; gap: 5px; z-index: 2000; 
+            position: fixed; left: 0; top: 0; width: 110px; height: 100vh; background: #000; 
+            border-right: 2px solid var(--p-red); display: flex; flex-direction: column; justify-content: center; z-index: 2000; 
         }
-        .nav-link { 
-            color: var(--text-gray); text-align: center; font-size: 11px; cursor: pointer; 
-            padding: 20px 0; transition: 0.3s; text-transform: uppercase; font-weight: 700; position: relative; 
+        .nav-item { 
+            color: #777; text-align: center; font-size: 11px; cursor: pointer; padding: 22px 0; 
+            transition: 0.3s; text-transform: uppercase; font-weight: 700; position: relative; 
         }
-        .nav-link i { font-size: 30px; display: block; margin-bottom: 8px; }
-        .nav-link:hover { color: #fff; }
-        .nav-link.active { 
-            color: #fff; background: rgba(255,0,0,0.1); border-left: 5px solid var(--primary); 
-        }
+        .nav-item i { font-size: 30px; display: block; margin-bottom: 8px; }
+        .nav-item.active { color: #fff; background: rgba(255,0,0,0.1); border-left: 5px solid var(--p-red); }
         .badge { 
-            position: absolute; top: 12px; right: 15px; background: var(--primary); 
-            color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 11px; 
-            line-height: 22px; font-weight: 900; border: 2px solid #000; display: none;
+            position: absolute; top: 12px; right: 15px; background: var(--p-red); color: white; 
+            border-radius: 50%; width: 22px; height: 22px; font-size: 11px; line-height: 22px; display: none; font-weight: 900; 
         }
 
-        /* --- MAIN CONTENT SCREENS --- */
-        .screen { display: none; padding: 40px; animation: fadeIn 0.5s ease; }
+        /* --- SCREENS --- */
+        .screen { display: none; padding: 40px; animation: slideIn 0.4s ease; }
         .screen.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .section-header { 
-            font-family: 'Orbitron'; color: var(--secondary); margin-bottom: 30px; 
-            font-size: 24px; border-left: 6px solid var(--primary); padding-left: 15px; 
-        }
+        .section-title { font-family: 'Orbitron'; color: var(--gold); margin-bottom: 30px; border-left: 6px solid var(--p-red); padding-left: 15px; font-size: 22px; }
 
         /* --- GAME CARDS --- */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; }
-        .card { 
-            background: var(--card-bg); height: 200px; border-radius: 30px; border: 1px solid var(--border);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden;
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; }
+        .game-card { 
+            background: var(--card); height: 200px; border-radius: 30px; border: 1px solid var(--border);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.4s; position: relative;
         }
-        .card:hover { border-color: var(--primary); transform: translateY(-10px); background: #1a1a1a; }
-        .card i { font-size: 55px; color: var(--secondary); margin-bottom: 15px; }
-        .card .tag { position: absolute; top: 15px; right: 15px; background: var(--primary); font-size: 10px; padding: 4px 10px; border-radius: 8px; font-weight: 900; letter-spacing: 1px; }
+        .game-card:hover { border-color: var(--p-red); transform: translateY(-8px); box-shadow: 0 10px 30px rgba(255,0,0,0.2); }
+        .game-card i { font-size: 55px; color: var(--gold); margin-bottom: 15px; }
+        .status-tag { position: absolute; top: 15px; right: 15px; background: var(--p-red); font-size: 10px; padding: 3px 10px; border-radius: 8px; font-weight: 900; }
 
-        /* --- FORMS & INPUTS --- */
-        .form-box { max-width: 650px; margin: 0 auto; background: #0a0a0a; padding: 40px; border-radius: 35px; border: 1px solid var(--border); box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
-        .info-strip { background: #111; padding: 20px; border-radius: 20px; margin-bottom: 30px; border: 1px dashed var(--secondary); text-align: center; }
-        input, select { 
-            width: 100%; padding: 20px; margin-bottom: 25px; border-radius: 18px; 
-            background: #151515; border: 1px solid #333; color: #fff; font-size: 16px; outline: none; transition: 0.3s;
-        }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255,0,0,0.2); }
-        .btn-submit { 
-            width: 100%; padding: 22px; background: var(--primary); border: none; border-radius: 20px; 
-            color: #fff; font-weight: 900; font-size: 20px; cursor: pointer; transition: 0.3s; text-transform: uppercase;
-        }
+        /* --- FORMS & HISTORY --- */
+        .box { max-width: 650px; margin: 0 auto; background: #0a0a0a; padding: 40px; border-radius: 35px; border: 1px solid var(--border); box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
+        .info { background: #111; padding: 20px; border-radius: 20px; margin-bottom: 30px; border: 1px dashed var(--gold); text-align: center; }
+        input, select { width: 100%; padding: 20px; margin-bottom: 25px; border-radius: 18px; background: #151515; border: 1px solid #333; color: #fff; font-size: 16px; outline: none; }
+        .btn-big { width: 100%; padding: 22px; background: var(--p-red); border: none; border-radius: 20px; color: #fff; font-weight: 900; font-size: 20px; cursor: pointer; text-transform: uppercase; }
 
-        /* --- TABLES & HISTORY --- */
-        .history-card { 
-            background: #111; padding: 20px; border-radius: 20px; margin-bottom: 15px; 
-            display: flex; justify-content: space-between; align-items: center; border: 1px solid #222;
-        }
-        .status-badge { padding: 5px 15px; border-radius: 10px; font-size: 12px; font-weight: 800; }
-        .PENDING { background: rgba(255, 215, 0, 0.1); color: var(--secondary); }
-        .APPROVED { background: rgba(39, 174, 96, 0.1); color: var(--success); }
-        .REJECTED { background: rgba(255, 0, 0, 0.1); color: var(--primary); }
+        .log-item { background: #111; padding: 20px; border-radius: 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; }
+        .st-PENDING { color: var(--gold); }
+        .st-APPROVED { color: var(--success); }
+        .st-REJECTED { color: var(--p-red); }
 
-        /* --- ADMIN REQUEST CARDS --- */
-        .admin-card { 
-            background: #fff; color: #000; padding: 30px; border-radius: 30px; margin-bottom: 25px; 
-            border-left: 15px solid var(--primary); position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .admin-card h3 { font-size: 22px; margin-bottom: 15px; font-weight: 900; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .admin-card p { font-size: 16px; margin: 8px 0; color: #444; }
-        .admin-btns { display: flex; gap: 15px; margin-top: 25px; }
-        .btn-approve { background: var(--success); color: #fff; flex: 1; padding: 18px; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; }
-        .btn-reject { background: var(--primary); color: #fff; flex: 1; padding: 18px; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; }
+        /* --- ADMIN REQUESTS --- */
+        .admin-box { background: #fff; color: #000; padding: 30px; border-radius: 30px; margin-bottom: 25px; border-left: 15px solid var(--p-red); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .admin-box h3 { font-size: 22px; font-weight: 900; border-bottom: 2px solid #eee; margin-bottom: 15px; padding-bottom: 10px; }
+        .admin-btn-row { display: flex; gap: 15px; margin-top: 25px; }
+        .btn-yes { background: var(--success); color: #fff; flex: 1; padding: 18px; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; }
+        .btn-no { background: var(--p-red); color: #fff; flex: 1; padding: 18px; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; }
 
-        /* --- AVIATOR INTERFACE --- */
-        #game-aviator { position: fixed; inset: 0; background: #000; z-index: 5000; display: none; flex-direction: column; }
-        .avi-top { padding: 25px; display: flex; justify-content: space-between; background: #0a0a0a; border-bottom: 1px solid #222; }
-        .avi-main { flex: 1; position: relative; overflow: hidden; background: radial-gradient(circle at bottom left, rgba(255,0,0,0.1), transparent); display: flex; align-items: center; justify-content: center; }
-        #crash-num { font-size: 120px; font-weight: 900; color: var(--secondary); text-shadow: 0 0 40px rgba(255,215,0,0.3); }
-        #plane-icon { position: absolute; bottom: 20%; left: 10%; font-size: 70px; color: var(--primary); transition: 0.1s linear; text-shadow: 0 0 25px red; }
-        .avi-bottom { padding: 40px; background: #080808; border-top: 3px solid #1a1a1a; display: flex; flex-direction: column; align-items: center; }
+        /* --- AVIATOR ENGINE --- */
+        #aviator-modal { position: fixed; inset: 0; background: #000; z-index: 5000; display: none; flex-direction: column; }
+        .avi-header { padding: 20px 30px; display: flex; justify-content: space-between; background: #0a0a0a; border-bottom: 2px solid #222; }
+        .avi-graph { flex: 1; position: relative; overflow: hidden; background: radial-gradient(circle at bottom left, rgba(255,0,0,0.15), transparent); display: flex; align-items: center; justify-content: center; }
+        #multiplier { font-size: 120px; font-weight: 900; color: var(--gold); text-shadow: 0 0 40px rgba(255,215,0,0.4); }
+        #plane { position: absolute; bottom: 20%; left: 10%; font-size: 70px; color: var(--p-red); transition: 0.1s linear; text-shadow: 0 0 30px red; }
+        
+        .avi-controls { padding: 30px; background: #080808; border-top: 3px solid #1a1a1a; display: flex; flex-direction: column; align-items: center; }
+        .bet-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 450px; margin-bottom: 15px; }
+        .chip { background: #222; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.2s; text-align: center; }
+        .chip:hover { background: var(--gold); color: #000; }
 
-        /* --- RESPONSIVE MOBILE --- */
+        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 900px) {
-            body { padding-left: 0; padding-bottom: 100px; }
-            nav { 
-                bottom: 0; top: auto; width: 100%; height: 95px; flex-direction: row; 
-                border-right: none; border-top: 3px solid var(--primary); 
-            }
-            .nav-link { flex: 1; font-size: 10px; padding: 15px 0; }
-            .nav-link i { font-size: 26px; }
-            header { padding: 0 20px; height: 80px; }
+            body { padding-left: 0; padding-bottom: 110px; }
+            nav { bottom: 0; top: auto; width: 100%; height: 100px; flex-direction: row; border-right: none; border-top: 3px solid var(--p-red); }
+            .nav-item { flex: 1; font-size: 10px; }
+            header { padding: 0 20px; }
             .logo { font-size: 24px; }
             .screen { padding: 25px; }
-            #crash-num { font-size: 80px; }
+            #multiplier { font-size: 80px; }
         }
     </style>
 </head>
-<body>
-
-    <div id="loader">
-        <div class="spinner"></div>
-        <p style="margin-top: 20px; font-family: 'Orbitron'; color: var(--primary);">CONNECTING TO NETWORK...</p>
-    </div>
+<body onload="initApp()">
 
     <header>
-        <div class="logo" onclick="adminLogin()">KING BET</div>
-        <div class="user-stats">
-            <div class="balance-box">Rs <span id="val-balance">0</span></div>
-        </div>
+        <div class="logo" onclick="adminAccess()">KING BET</div>
+        <div class="bal-display">Rs <span id="user-bal">0</span></div>
     </header>
 
     <nav>
-        <div class="nav-link active" onclick="tab('lobby', this)"><i class="fa fa-th-large"></i>Lobby</div>
-        <div class="nav-link" onclick="tab('deposit', this)"><i class="fa fa-wallet"></i>Deposit</div>
-        <div class="nav-link" onclick="tab('withdraw', this)"><i class="fa fa-hand-holding-usd"></i>Cashout</div>
-        <div class="nav-link" onclick="tab('history', this)"><i class="fa fa-list-alt"></i>History</div>
-        <div class="nav-link" onclick="tab('profile', this)"><i class="fa fa-user-circle"></i>Profile</div>
-        <div id="admin-tab" class="nav-link" style="display:none;" onclick="tab('admin', this)">
-            <span id="req-count" class="badge">0</span>
-            <i class="fa fa-user-shield"></i>Admin
+        <div class="nav-item active" onclick="show('home', this)"><i class="fa fa-th-large"></i>Home</div>
+        <div class="nav-item" onclick="show('deposit', this)"><i class="fa fa-plus-circle"></i>Deposit</div>
+        <div class="nav-item" onclick="show('withdraw', this)"><i class="fa fa-minus-circle"></i>Withdraw</div>
+        <div class="nav-item" onclick="show('history', this)"><i class="fa fa-history"></i>History</div>
+        <div class="nav-item" onclick="show('profile', this)"><i class="fa fa-user-circle"></i>Profile</div>
+        <div id="adm-nav" class="nav-item" style="display:none;" onclick="show('admin', this)">
+            <span id="adm-count" class="badge">0</span>
+            <i class="fa fa-shield-alt"></i>Admin
         </div>
     </nav>
 
-    <div id="lobby" class="screen active">
-        <h2 class="section-header">LIVE CASINO LOBBY</h2>
-        <div class="grid-container">
-            <div class="card" onclick="startAviator()">
-                <div class="tag">HOT</div>
-                <i class="fa fa-plane-departure"></i>
-                <span style="font-weight: 800; font-size: 18px;">AVIATOR</span>
+    <div class="container">
+        <div id="screen-home" class="screen active">
+            <h2 class="section-title">LIVE GAMES</h2>
+            <div class="grid">
+                <div class="game-card" onclick="openAviator()">
+                    <div class="status-tag">HOT</div>
+                    <i class="fa fa-plane-departure"></i>
+                    <span style="font-weight:900; font-size:18px;">AVIATOR</span>
+                </div>
+                <div class="game-card" onclick="alert('Maintenance...')"><i class="fa fa-dice"></i><span>LUDO PREM</span></div>
+                <div class="game-card" onclick="alert('Opening Soon')"><i class="fa fa-cards"></i><span>3 PATTI</span></div>
             </div>
-            <div class="card" onclick="alert('Maintenance in progress...')">
-                <i class="fa fa-dice"></i>
-                <span>LUDO PREM</span>
+        </div>
+
+        <div id="screen-deposit" class="screen">
+            <div class="box">
+                <h2 style="text-align:center; margin-bottom:20px;">FUNDS DEPOSIT</h2>
+                <div class="info">
+                    <p style="color:#888;">EASYPAISA AGENT:</p>
+                    <h3 style="color:var(--gold); font-size:30px; cursor:pointer;" onclick="copyNum()">03182452810</h3>
+                    <small>(Tap to Copy Number)</small>
+                </div>
+                <input type="text" id="d-acc" placeholder="Sender Name">
+                <input type="text" id="d-tid" placeholder="Transaction ID (TID)">
+                <input type="number" id="d-amt" placeholder="Amount (Min 100)">
+                <button class="btn-big" onclick="submitDep()">SUBMIT REQUEST</button>
             </div>
-            <div class="card" onclick="alert('Table opening at 10:00 PM')">
-                <i class="fa fa-spades"></i>
-                <span>3 PATTI</span>
+        </div>
+
+        <div id="screen-withdraw" class="screen">
+            <div class="box">
+                <h2 style="text-align:center; margin-bottom:20px;">WITHDRAWAL</h2>
+                <select id="w-bank"><option>EasyPaisa</option><option>JazzCash</option></select>
+                <input type="text" id="w-name" placeholder="Account Name">
+                <input type="number" id="w-num" placeholder="Account Number">
+                <input type="number" id="w-amt" placeholder="Amount (Min 500)">
+                <button class="btn-big" style="background:var(--success);" onclick="submitWit()">WITHDRAW NOW</button>
             </div>
+        </div>
+
+        <div id="screen-history" class="screen">
+            <h2 class="section-title">TRANSACTION HISTORY</h2>
+            <div id="history-list">
+                <p style="text-align:center; color:#555; padding:50px;">No records yet.</p>
+            </div>
+        </div>
+
+        <div id="screen-profile" class="screen">
+            <div style="background:linear-gradient(135deg, #111, #1a1a1a); padding:60px; border-radius:40px; text-align:center; border:1px solid #333;">
+                <div style="width:110px; height:110px; background:var(--p-red); border-radius:50%; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; font-size:50px;">
+                    <i class="fa fa-user"></i>
+                </div>
+                <h1 id="prof-bal" style="font-size:50px; color:var(--gold); margin-bottom:10px;">Rs 0</h1>
+                <p style="color:#777; font-weight:800;">ID: <span id="prof-uid" style="color:#fff;">---</span></p>
+                <button class="btn-big" style="margin-top:40px; background:#444;" onclick="logout()">LOGOUT</button>
+            </div>
+        </div>
+
+        <div id="screen-admin" class="screen">
+            <h2 style="color:red; font-family:'Orbitron'; margin-bottom:30px;"><i class="fa fa-user-shield"></i> MASTER CONTROL</h2>
+            <div id="admin-list"></div>
         </div>
     </div>
 
-    <div id="deposit" class="screen">
-        <div class="form-box">
-            <h2 style="text-align: center; margin-bottom: 25px;">DEPOSIT FUNDS</h2>
-            <div class="info-strip">
-                <p style="color: #888; font-size: 14px;">SEND PAYMENT TO EASYPAISA:</p>
-                <h3 id="ep-num" style="color: var(--secondary); font-size: 28px; letter-spacing: 2px;" onclick="copyEP()">03182452810</h3>
-                <small>(Tap number to copy)</small>
+    <div id="aviator-modal">
+        <div class="avi-header">
+            <div style="color:var(--gold); font-family:'Orbitron'; font-weight:900;">AVIATOR LIVE</div>
+            <div style="cursor:pointer; font-size:40px;" onclick="closeAviator()">×</div>
+        </div>
+        <div class="avi-graph">
+            <div id="multiplier">1.00x</div>
+            <i class="fa fa-plane" id="plane"></i>
+        </div>
+        <div class="avi-controls">
+            <div class="bet-chips">
+                <div class="chip" onclick="setBet(10)">10</div>
+                <div class="chip" onclick="setBet(50)">50</div>
+                <div class="chip" onclick="setBet(100)">100</div>
+                <div class="chip" onclick="setBet(500)">500</div>
+                <div class="chip" onclick="setBet(1000)">1000</div>
+                <div class="chip" onclick="setBet(5000)">5000</div>
             </div>
-            <input type="text" id="d-acc-name" placeholder="Sender Account Name">
-            <input type="text" id="d-trx-id" placeholder="Transaction ID (TID)">
-            <input type="number" id="d-amount" placeholder="Deposit Amount (Min 100)">
-            <button class="btn-submit" onclick="actionDeposit()">SUBMIT REQUEST</button>
-        </div>
-    </div>
-
-    <div id="withdraw" class="screen">
-        <div class="form-box">
-            <h2 style="text-align: center; margin-bottom: 25px;">CASHOUT REQUEST</h2>
-            <select id="w-method">
-                <option value="EasyPaisa">EasyPaisa</option>
-                <option value="JazzCash">JazzCash</option>
-            </select>
-            <input type="text" id="w-acc-name" placeholder="Receiver Account Name">
-            <input type="number" id="w-acc-num" placeholder="Account Number">
-            <input type="number" id="w-amount" placeholder="Withdraw Amount (Min 500)">
-            <button class="btn-submit" style="background: var(--success);" onclick="actionWithdraw()">WITHDRAW NOW</button>
-        </div>
-    </div>
-
-    <div id="history" class="screen">
-        <h2 class="section-header">TRANSACTION HISTORY</h2>
-        <div id="history-container">
-            <p style="text-align: center; color: #444; padding: 50px;">No transactions found.</p>
-        </div>
-    </div>
-
-    <div id="profile" class="screen">
-        <div style="background: linear-gradient(135deg, #0a0a0a, #151515); padding: 60px; border-radius: 40px; text-align: center; border: 1px solid #333;">
-            <div style="width: 120px; height: 120px; background: var(--primary); border-radius: 50%; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; font-size: 50px; box-shadow: 0 0 30px rgba(255,0,0,0.3);">
-                <i class="fa fa-user"></i>
-            </div>
-            <h1 id="prof-bal" style="font-size: 50px; color: var(--secondary); margin-bottom: 15px;">Rs 0</h1>
-            <p style="color: var(--text-gray); font-weight: 800;">USER UNIQUE ID: <span id="prof-id" style="color: #fff;">---</span></p>
-            <div style="display: flex; gap: 15px; margin-top: 40px;">
-                <button class="btn-submit" style="background: #222; font-size: 14px;" onclick="location.reload()">SYNC DATA</button>
-                <button class="btn-submit" style="background: #444; font-size: 14px;" onclick="userLogout()">LOGOUT</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="admin" class="screen">
-        <h2 style="color: red; font-family: 'Orbitron'; margin-bottom: 35px; display: flex; align-items: center; gap: 15px;">
-            <i class="fa fa-shield-alt"></i> MASTER ADMIN PANEL
-        </h2>
-        <div id="admin-list">
-            <p style="text-align: center; color: #555; padding: 100px;">All requests cleared.</p>
-        </div>
-    </div>
-
-    <div id="game-aviator">
-        <div class="avi-top">
-            <div style="color: var(--secondary); font-family: 'Orbitron'; font-weight: 900; font-size: 20px;">AVIATOR LIVE</div>
-            <div style="cursor: pointer; font-size: 35px;" onclick="stopAviator()">×</div>
-        </div>
-        <div class="avi-main">
-            <div id="crash-num">1.00x</div>
-            <i class="fa fa-plane" id="plane-icon"></i>
-        </div>
-        <div class="avi-bottom">
-            <div style="width: 100%; max-width: 450px;">
-                <input type="number" id="avi-bet" placeholder="Bet Amount (Min 60)" style="text-align: center; border: 2px solid var(--secondary);">
-                <button id="avi-btn-start" class="btn-submit" style="background: var(--success);" onclick="aviBetStart()">PLACE BET</button>
-                <button id="avi-btn-cash" class="btn-submit" style="display: none; background: var(--secondary); color: #000;" onclick="aviCashout()">CASHOUT</button>
+            <div style="width:100%; max-width:450px;">
+                <input type="number" id="avi-bet-val" placeholder="Amount" style="text-align:center; border:2px solid var(--gold);">
+                <button id="avi-start" class="btn-big" style="background:var(--success);" onclick="aviFly()">PLACE BET</button>
+                <button id="avi-cash" class="btn-big" style="display:none; background:var(--gold); color:#000;" onclick="aviCashout()">CASHOUT</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. FIREBASE CONFIG ---
+        // --- FIREBASE CONFIG ---
         const firebaseConfig = {
             apiKey: "AIzaSyC4a0fl2BV4lItZzIqZPF3zgUqggzUXS2I",
             authDomain: "kingbet-6b8a3.firebaseapp.com",
@@ -290,118 +235,136 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // --- 2. GLOBAL STATE ---
-        let UID = localStorage.getItem('kb_user_id') || 'USER-' + Math.floor(Math.random() * 899999 + 100000);
-        localStorage.setItem('kb_user_id', UID);
-        let currentBalance = 0;
-        let isGameRunning = false;
-        let gameTimer, multiplier = 1.0, betAmount = 0;
+        // --- STATE ---
+        let UID = localStorage.getItem('kb_uid') || 'U-' + Math.floor(Math.random()*900000+100000);
+        localStorage.setItem('kb_uid', UID);
+        let myBal = 0;
+        let isFlying = false, currentMult = 1.0, betAmt = 0, timer;
 
-        // --- 3. INITIALIZATION ---
-        window.onload = () => {
-            document.getElementById('prof-id').innerText = UID;
+        function initApp() {
+            document.getElementById('prof-uid').innerText = UID;
             
-            // Real-time Balance Sync
-            db.ref('users/' + UID + '/balance').on('value', (s) => {
-                currentBalance = s.val() || 0;
-                document.getElementById('val-balance').innerText = currentBalance.toLocaleString();
-                document.getElementById('prof-bal').innerText = "Rs " + currentBalance.toLocaleString();
+            // Sync Balance
+            db.ref('users/'+UID+'/balance').on('value', (s) => {
+                myBal = s.val() || 0;
+                document.getElementById('user-bal').innerText = myBal.toLocaleString();
+                document.getElementById('prof-bal').innerText = "Rs " + myBal.toLocaleString();
             });
 
-            // Transaction History Sync
-            syncHistory();
-
-            // Admin Logic
-            if(localStorage.getItem('kb_admin_access') === 'true') {
-                document.getElementById('admin-tab').style.display = 'block';
-                syncAdminPanel();
-            }
-
-            setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 1500);
-        };
-
-        // --- 4. NAVIGATION SYSTEM ---
-        function tab(name, el) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(name).classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            if(el) el.classList.add('active');
-        }
-
-        // --- 5. TRANSACTION ACTIONS ---
-        function actionDeposit() {
-            const name = document.getElementById('d-acc-name').value;
-            const tid = document.getElementById('d-trx-id').value;
-            const amt = parseInt(document.getElementById('d-amount').value);
-
-            if(!name || !tid || isNaN(amt) || amt < 100) return alert("Please fill all details correctly!");
-
-            const reqKey = db.ref('requests').push().key;
-            db.ref('requests/' + reqKey).set({
-                uid: UID, name: name, tid: tid, amount: amt, type: 'DEPOSIT', status: 'PENDING', date: new Date().toLocaleString()
-            });
-            alert("Deposit request submitted successfully!");
-            tab('history');
-        }
-
-        function actionWithdraw() {
-            const name = document.getElementById('w-acc-name').value;
-            const num = document.getElementById('w-acc-num').value;
-            const amt = parseInt(document.getElementById('w-amount').value);
-            const method = document.getElementById('w-method').value;
-
-            if(!name || !num || isNaN(amt) || amt < 500) return alert("Min withdrawal is Rs 500!");
-            if(amt > currentBalance) return alert("Insufficient balance!");
-
-            // Deduct balance immediately
-            db.ref('users/' + UID).update({ balance: currentBalance - amt });
-
-            const reqKey = db.ref('requests').push().key;
-            db.ref('requests/' + reqKey).set({
-                uid: UID, name: name, num: num, amount: amt, method: method, type: 'WITHDRAW', status: 'PENDING', date: new Date().toLocaleString()
-            });
-            alert("Withdrawal request sent!");
-            tab('history');
-        }
-
-        // --- 6. HISTORY SYNC ---
-        function syncHistory() {
+            // Sync History
             db.ref('requests').on('value', (snap) => {
-                const container = document.getElementById('history-container');
-                container.innerHTML = "";
-                let hasData = false;
+                const list = document.getElementById('history-list');
+                list.innerHTML = "";
+                let count = 0;
                 snap.forEach(child => {
                     const r = child.val();
                     if(r.uid === UID) {
-                        hasData = true;
-                        container.insertAdjacentHTML('afterbegin', `
-                            <div class="history-card">
-                                <div>
-                                    <strong style="color:var(--secondary)">${r.type}</strong><br>
-                                    <small style="color:#666">${r.date}</small>
-                                </div>
-                                <div style="text-align:right">
-                                    <span style="font-weight:900">Rs ${r.amount}</span><br>
-                                    <span class="status-badge ${r.status}">${r.status}</span>
-                                </div>
+                        count++;
+                        list.insertAdjacentHTML('afterbegin', `
+                            <div class="log-item">
+                                <div><b>${r.type}</b><br><small>${r.date}</small></div>
+                                <div class="st-${r.status}">Rs ${r.amount} <br> ${r.status}</div>
                             </div>
                         `);
                     }
                 });
-                if(!hasData) container.innerHTML = '<p style="text-align:center;color:#444;padding:50px;">No history found.</p>';
+                if(count === 0) list.innerHTML = '<p style="text-align:center;padding:50px;">No History.</p>';
             });
+
+            // Admin Sync
+            if(localStorage.getItem('kb_admin') === 'true') {
+                document.getElementById('adm-nav').style.display = 'block';
+                syncAdmin();
+            }
         }
 
-        // --- 7. ADMIN ENGINE ---
-        function adminLogin() {
-            const pin = prompt("Enter Master Admin PIN:");
-            if(pin === "ayaz786") {
-                localStorage.setItem('kb_admin_access', 'true');
+        function show(id, el) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen-'+id).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            if(el) el.classList.add('active');
+        }
+
+        // --- ACTIONS ---
+        function submitDep() {
+            let n = document.getElementById('d-acc').value;
+            let t = document.getElementById('d-tid').value;
+            let a = parseInt(document.getElementById('d-amt').value);
+            if(!n || !t || a < 100) return alert("Error!");
+            db.ref('requests').push().set({ uid:UID, name:n, tid:t, amount:a, type:'DEPOSIT', status:'PENDING', date:new Date().toLocaleString() });
+            alert("Sent!"); show('history');
+        }
+
+        function submitWit() {
+            let a = parseInt(document.getElementById('w-amt').value);
+            if(a > myBal || a < 500) return alert("Low Balance!");
+            db.ref('users/'+UID).update({ balance: myBal - a });
+            db.ref('requests').push().set({ 
+                uid:UID, name:document.getElementById('w-name').value, 
+                num:document.getElementById('w-num').value, amount:a, type:'WITHDRAW', status:'PENDING', date:new Date().toLocaleString() 
+            });
+            alert("Withdrawal Sent!"); show('history');
+        }
+
+        // --- AVIATOR ENGINE ---
+        function openAviator() { document.getElementById('aviator-modal').style.display = 'flex'; }
+        function closeAviator() { if(!isFlying) document.getElementById('aviator-modal').style.display = 'none'; }
+        function setBet(val) { document.getElementById('avi-bet-val').value = val; }
+
+        function aviFly() {
+            betAmt = parseInt(document.getElementById('avi-bet-val').value);
+            if(betAmt < 10 || betAmt > myBal) return alert("Balance?");
+
+            db.ref('users/'+UID).update({ balance: myBal - betAmt });
+            isFlying = true; currentMult = 1.0;
+            document.getElementById('avi-start').style.display = 'none';
+            document.getElementById('avi-cash').style.display = 'block';
+            document.getElementById('multiplier').style.color = "var(--gold)";
+
+            let crashPoint = (Math.random() * 4.5 + 1.01).toFixed(2);
+            timer = setInterval(() => {
+                currentMult += 0.05;
+                document.getElementById('multiplier').innerText = currentMult.toFixed(2) + "x";
+                let p = document.getElementById('plane');
+                p.style.bottom = (20 + (currentMult-1)*40) + "%";
+                p.style.left = (10 + (currentMult-1)*15) + "%";
+
+                if(currentMult >= crashPoint) {
+                    clearInterval(timer); isFlying = false;
+                    document.getElementById('multiplier').innerText = "FLEW AWAY!";
+                    document.getElementById('multiplier').style.color = "red";
+                    setTimeout(resetAvi, 2000);
+                }
+            }, 100);
+        }
+
+        function aviCashout() {
+            if(!isFlying) return;
+            clearInterval(timer); isFlying = false;
+            let win = Math.floor(betAmt * currentMult);
+            db.ref('users/'+UID).update({ balance: myBal + win });
+            document.getElementById('multiplier').innerText = "WIN Rs " + win;
+            document.getElementById('multiplier').style.color = "var(--success)";
+            setTimeout(resetAvi, 2000);
+        }
+
+        function resetAvi() {
+            document.getElementById('avi-start').style.display = 'block';
+            document.getElementById('avi-cash').style.display = 'none';
+            document.getElementById('multiplier').innerText = "1.00x";
+            document.getElementById('plane').style.bottom = "20%";
+            document.getElementById('plane').style.left = "10%";
+        }
+
+        // --- ADMIN ---
+        function adminAccess() {
+            if(prompt("PIN:") === "ayaz786") {
+                localStorage.setItem('kb_admin', 'true');
                 location.reload();
             }
         }
 
-        function syncAdminPanel() {
+        function syncAdmin() {
             db.ref('requests').on('value', (snap) => {
                 const list = document.getElementById('admin-list');
                 list.innerHTML = "";
@@ -411,99 +374,34 @@
                     if(r.status === 'PENDING') {
                         count++;
                         list.insertAdjacentHTML('afterbegin', `
-                            <div class="admin-card">
-                                <h3>${r.type} REQUEST</h3>
-                                <p><strong>USER ID:</strong> ${r.uid}</p>
-                                <p><strong>NAME:</strong> ${r.name}</p>
-                                <p><strong>AMOUNT:</strong> Rs ${r.amount}</p>
-                                <p><strong>DETAIL:</strong> ${r.tid || r.num}</p>
-                                <div class="admin-btns">
-                                    <button class="btn-approve" onclick="resolveReq('${child.key}', '${r.uid}', ${r.amount}, '${r.type}', 'APPROVED')">APPROVE</button>
-                                    <button class="btn-reject" onclick="resolveReq('${child.key}', '${r.uid}', ${r.amount}, '${r.type}', 'REJECTED')">REJECT</button>
+                            <div class="admin-box">
+                                <h3>${r.type} - Rs ${r.amount}</h3>
+                                <p>User: ${r.uid} | ${r.name}</p>
+                                <p>Details: ${r.tid || r.num}</p>
+                                <div class="admin-btn-row">
+                                    <button class="btn-yes" onclick="approve('${child.key}','${r.uid}',${r.amount},'${r.type}')">APPROVE</button>
+                                    <button class="btn-no" onclick="reject('${child.key}','${r.uid}',${r.amount},'${r.type}')">REJECT</button>
                                 </div>
                             </div>
                         `);
                     }
                 });
-                document.getElementById('req-count').innerText = count;
-                document.getElementById('req-count').style.display = count > 0 ? 'block' : 'none';
+                document.getElementById('adm-count').innerText = count;
+                document.getElementById('adm-count').style.display = count > 0 ? 'block' : 'none';
             });
         }
 
-        function resolveReq(key, uid, amt, type, status) {
-            if(status === 'APPROVED' && type === 'DEPOSIT') {
-                db.ref('users/' + uid + '/balance').transaction(c => (c || 0) + amt);
-            }
-            if(status === 'REJECTED' && type === 'WITHDRAW') {
-                db.ref('users/' + uid + '/balance').transaction(c => (c || 0) + amt);
-            }
-            db.ref('requests/' + key).update({ status: status });
+        function approve(k, u, a, t) {
+            if(t==='DEPOSIT') db.ref('users/'+u+'/balance').transaction(c => (c||0)+a);
+            db.ref('requests/'+k).update({ status: 'APPROVED' });
+        }
+        function reject(k, u, a, t) {
+            if(t==='WITHDRAW') db.ref('users/'+u+'/balance').transaction(c => (c||0)+a);
+            db.ref('requests/'+k).update({ status: 'REJECTED' });
         }
 
-        // --- 8. AVIATOR GAME ENGINE ---
-        function startAviator() { document.getElementById('game-aviator').style.display = 'flex'; }
-        function stopAviator() { if(!isGameRunning) document.getElementById('game-aviator').style.display = 'none'; }
-
-        function aviBetStart() {
-            betAmount = parseInt(document.getElementById('avi-bet').value);
-            if(isNaN(betAmount) || betAmount < 60 || betAmount > currentBalance) return alert("Invalid Bet Amount!");
-
-            db.ref('users/' + UID).update({ balance: currentBalance - betAmount });
-            isGameRunning = true;
-            multiplier = 1.0;
-            document.getElementById('avi-btn-start').style.display = 'none';
-            document.getElementById('avi-btn-cash').style.display = 'block';
-            document.getElementById('crash-num').style.color = "var(--secondary)";
-
-            const crashPoint = (Math.random() * 3.8 + 1.02).toFixed(2);
-            
-            gameTimer = setInterval(() => {
-                multiplier += 0.03;
-                document.getElementById('crash-num').innerText = multiplier.toFixed(2) + "x";
-                
-                const plane = document.getElementById('plane-icon');
-                plane.style.bottom = (20 + (multiplier-1) * 45) + "%";
-                plane.style.left = (10 + (multiplier-1) * 15) + "%";
-
-                if(multiplier >= crashPoint) {
-                    clearInterval(gameTimer);
-                    isGameRunning = false;
-                    document.getElementById('crash-num').innerText = "FLEW AWAY!";
-                    document.getElementById('crash-num').style.color = "var(--primary)";
-                    setTimeout(resetAviUI, 2500);
-                }
-            }, 100);
-        }
-
-        function aviCashout() {
-            if(!isGameRunning) return;
-            clearInterval(gameTimer);
-            isGameRunning = false;
-            const win = Math.floor(betAmount * multiplier);
-            db.ref('users/' + UID).update({ balance: currentBalance + win });
-            document.getElementById('crash-num').innerText = "WIN Rs " + win;
-            document.getElementById('crash-num').style.color = "var(--success)";
-            setTimeout(resetAviUI, 2500);
-        }
-
-        function resetAviUI() {
-            document.getElementById('avi-btn-start').style.display = 'block';
-            document.getElementById('avi-btn-cash').style.display = 'none';
-            document.getElementById('crash-num').innerText = "1.00x";
-            document.getElementById('crash-num').style.color = "var(--secondary)";
-            const plane = document.getElementById('plane-icon');
-            plane.style.bottom = "20%"; plane.style.left = "10%";
-        }
-
-        function copyEP() {
-            navigator.clipboard.writeText("03182452810");
-            alert("Account Number Copied!");
-        }
-
-        function userLogout() {
-            localStorage.clear();
-            location.reload();
-        }
+        function copyNum() { navigator.clipboard.writeText("03182452810"); alert("Copied!"); }
+        function logout() { localStorage.clear(); location.reload(); }
     </script>
 </body>
 </html>
