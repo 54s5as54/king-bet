@@ -314,13 +314,13 @@
         /* --- LOBBY GRID DESIGN --- */
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
             margin-bottom: 35px;
         }
 
         .lobby-card {
-            min-height: 240px;
+            min-height: 180px;
             position: relative;
             overflow: hidden;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
@@ -338,7 +338,7 @@
             position: absolute;
             right: -15px;
             bottom: -15px;
-            font-size: 130px !important;
+            font-size: 90px !important;
             opacity: 0.15;
             transform: rotate(-15deg);
             transition: 0.5s ease;
@@ -853,8 +853,8 @@
                         onclick="launchAviator()">
                         <div>
                             <span
-                                style="background:var(--king-rose); color:#fff; padding:5px 15px; border-radius:50px; font-size:10px; font-weight:900; margin-bottom:15px; display:inline-block; letter-spacing:1px;">POPULAR</span>
-                            <h2 style="font-family:'Orbitron'; font-size:32px; letter-spacing:2px; margin-bottom:10px;">
+                                style="background:var(--king-rose); color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">POPULAR</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
                                 AVIATOR PRO</h2>
                             <p style="color:var(--king-dim);">Provably fair. Max multiplier: 10,000x.</p>
                         </div>
@@ -867,9 +867,9 @@
                         onclick="launchChicken()">
                         <div>
                             <span
-                                style="background:var(--king-amber); color:#000; padding:5px 15px; border-radius:50px; font-size:10px; font-weight:900; margin-bottom:15px; display:inline-block; letter-spacing:1px;">NEW
+                                style="background:var(--king-amber); color:#000; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">NEW
                                 GAME</span>
-                            <h2 style="font-family:'Orbitron'; font-size:32px; letter-spacing:2px; margin-bottom:10px;">
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
                                 CHICKEN ROAD</h2>
                             <p style="color:var(--king-dim);">Find the chickens, avoid the bones. High risk.</p>
                         </div>
@@ -882,13 +882,181 @@
                         onclick="launchScratch()">
                         <div>
                             <span
-                                style="background:var(--king-emerald); color:#fff; padding:5px 15px; border-radius:50px; font-size:10px; font-weight:900; margin-bottom:15px; display:inline-block; letter-spacing:1px;">INSTANT
+                                style="background:var(--king-emerald); color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">INSTANT
                                 WIN</span>
-                            <h2 style="font-family:'Orbitron'; font-size:32px; letter-spacing:2px; margin-bottom:10px;">
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
                                 LUCKY SCRATCH</h2>
                             <p style="color:var(--king-dim);">Match 3 symbols to win up to 100x instantly.</p>
                         </div>
                         <i class="fa fa-ticket-alt main-icon" style="color:var(--king-emerald);"></i>
+                    </div>
+
+                    <!-- Mines -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#ef4444; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">TOP
+                                10</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                MINES</h2>
+                            <p style="color:var(--king-dim);">High stakes treasure hunt.</p>
+                        </div>
+                        <i class="fa fa-bomb main-icon" style="color:#ef4444;"></i>
+                    </div>
+
+                    <!-- Plinko -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#8b5cf6; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">TOP
+                                10</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                PLINKO</h2>
+                            <p style="color:var(--king-dim);">Drop the ball, catch the win.</p>
+                        </div>
+                        <i class="fa fa-braille main-icon" style="color:#8b5cf6;"></i>
+                    </div>
+
+                    <!-- Mega Wheel -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#ec4899; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">TOP
+                                10</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                MEGA WHEEL</h2>
+                            <p style="color:var(--king-dim);">Spin to change your life.</p>
+                        </div>
+                        <i class="fa fa-dharmachakra main-icon" style="color:#ec4899;"></i>
+                    </div>
+
+                    <!-- Coin Flip -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#f59e0b; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">TOP
+                                10</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                COIN FLIP</h2>
+                            <p style="color:var(--king-dim);">50/50 instant double up.</p>
+                        </div>
+                        <i class="fa fa-coins main-icon" style="color:#f59e0b;"></i>
+                    </div>
+
+                    <!-- Tower -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#3b82f6; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">TOP
+                                10</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                TOWER</h2>
+                            <p style="color:var(--king-dim);">Climb high for the jackpot.</p>
+                        </div>
+                        <i class="fa fa-building main-icon" style="color:#3b82f6;"></i>
+                    </div>
+
+                    <!-- Snack Game -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#475569; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">COMING
+                                SOON</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                SNACK GAME</h2>
+                            <p style="color:var(--king-dim);">The classic revisited. Stay tuned!</p>
+                        </div>
+                        <i class="fa fa-apple-whole main-icon" style="color:#475569;"></i>
+                    </div>
+
+                    <!-- Penalty Shootout -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#475569; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">COMING
+                                SOON</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                PENALTY</h2>
+                            <p style="color:var(--king-dim);">Score for the big multiplier.</p>
+                        </div>
+                        <i class="fa fa-futbol main-icon" style="color:#475569;"></i>
+                    </div>
+
+                    <!-- Royal Poker -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#475569; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">COMING
+                                SOON</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                POKER</h2>
+                            <p style="color:var(--king-dim);">The King of card games.</p>
+                        </div>
+                        <i class="fa fa-spade main-icon" style="color:#475569;"></i>
+                    </div>
+
+                    <!-- Dragon Spin -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#475569; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">COMING
+                                SOON</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                DRAGON</h2>
+                            <p style="color:var(--king-dim);">Fire and rewards.</p>
+                        </div>
+                        <i class="fa fa-dragon main-icon" style="color:#475569;"></i>
+                    </div>
+
+                    <!-- Turbo Dice -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#475569; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">COMING
+                                SOON</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                DICE</h2>
+                            <p style="color:var(--king-dim);">Roll for glory.</p>
+                        </div>
+                        <i class="fa fa-dice main-icon" style="color:#475569;"></i>
+                    </div>
+
+                    <!-- Space Blast -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#475569; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">COMING
+                                SOON</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                SPACE</h2>
+                            <p style="color:var(--king-dim);">Fly to the moon.</p>
+                        </div>
+                        <i class="fa fa-rocket main-icon" style="color:#475569;"></i>
+                    </div>
+
+                    <!-- Gold Miner -->
+                    <div class="glass-card lobby-card"
+                        style="background: rgba(30,41,59,0.3); cursor:not-allowed; opacity: 0.6;">
+                        <div>
+                            <span
+                                style="background:#475569; color:#fff; padding:3px 10px; border-radius:50px; font-size:8px; font-weight:900; margin-bottom:8px; display:inline-block; letter-spacing:1px;">COMING
+                                SOON</span>
+                            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:1px; margin-bottom:5px;">
+                                MINER</h2>
+                            <p style="color:var(--king-dim);">Dig for the riches.</p>
+                        </div>
+                        <i class="fa fa-pickaxe main-icon" style="color:#475569;"></i>
                     </div>
                 </div>
 
