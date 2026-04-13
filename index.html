@@ -18,17 +18,17 @@
            1. CSS VARIABLES & THEME DEFINITION
            ========================================================================== */
         :root {
-            --king-rose: #f43f5e;
+            --king-rose: #ff2d55;
             --king-amber: #fbbf24;
             --king-emerald: #10b981;
-            --king-slate: #0f172a;
+            --king-slate: rgba(30, 41, 59, 0.7);
             --king-void: #020617;
-            --king-border: #1e293b;
+            --king-border: rgba(255, 255, 255, 0.15);
             --king-text: #f8fafc;
-            --king-dim: #64748b;
+            --king-dim: #94a3b8;
             --sidebar-w: 100px;
             --header-h: 85px;
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
         /* ==========================================================================
@@ -43,12 +43,34 @@
         }
 
         body {
-            background: var(--king-void);
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%) fixed;
             color: var(--king-text);
             overflow-x: hidden;
             height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        @keyframes rgb-glow {
+            0% {
+                border-color: var(--king-rose);
+                box-shadow: 0 0 25px rgba(255, 45, 85, 0.2);
+            }
+
+            33% {
+                border-color: var(--king-amber);
+                box-shadow: 0 0 25px rgba(251, 191, 36, 0.2);
+            }
+
+            66% {
+                border-color: var(--king-emerald);
+                box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+            }
+
+            100% {
+                border-color: var(--king-rose);
+                box-shadow: 0 0 25px rgba(255, 45, 85, 0.2);
+            }
         }
 
         ::-webkit-scrollbar {
@@ -60,7 +82,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--king-border);
+            background: #334155;
             border-radius: 10px;
         }
 
@@ -70,7 +92,7 @@
         #auth-master {
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle, #450a19 0%, #020617 100%);
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -80,12 +102,15 @@
         .auth-portal {
             width: 90%;
             max-width: 480px;
-            background: var(--king-slate);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
             padding: 50px;
             border-radius: 40px;
-            border: 1px solid var(--king-border);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: var(--shadow-lg);
             text-align: center;
+            animation: rgb-glow 6s infinite ease-in-out;
         }
 
         .auth-logo {
@@ -95,10 +120,11 @@
             color: var(--king-rose);
             margin-bottom: 40px;
             letter-spacing: 5px;
+            text-shadow: 0 0 15px rgba(255, 45, 85, 0.4);
         }
 
         .auth-logo span {
-            color: #fff;
+            color: var(--king-text);
         }
 
         .k-input-group {
@@ -120,8 +146,8 @@
             width: 100%;
             padding: 18px 25px;
             border-radius: 15px;
-            background: var(--king-void);
-            border: 1px solid var(--king-border);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
             font-size: 16px;
             transition: 0.3s;
@@ -130,7 +156,7 @@
 
         .k-field:focus {
             border-color: var(--king-rose);
-            box-shadow: 0 0 15px rgba(244, 63, 94, 0.2);
+            box-shadow: 0 0 15px rgba(255, 45, 85, 0.3);
         }
 
         /* ==========================================================================
@@ -144,8 +170,9 @@
 
         .top-bar {
             height: var(--header-h);
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(25px);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--king-border);
             display: flex;
             align-items: center;
@@ -165,7 +192,8 @@
         }
 
         .wallet-badge {
-            background: #1e293b;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
             border: 2px solid var(--king-amber);
             padding: 12px 25px;
             border-radius: 50px;
@@ -174,6 +202,7 @@
             gap: 10px;
             transition: 0.3s;
             cursor: pointer;
+            animation: rgb-glow 6s infinite linear;
         }
 
         .wallet-badge:hover {
@@ -194,8 +223,9 @@
             top: 0;
             width: var(--sidebar-w);
             height: 100vh;
-            background: var(--king-void);
-            border-right: 1px solid var(--king-border);
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(25px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
             padding-top: 100px;
@@ -224,8 +254,7 @@
         }
 
         .nav-link.active {
-            color: #fff;
-            background: linear-gradient(to right, rgba(244, 63, 94, 0.1), transparent);
+            color: var(--king-rose);
         }
 
         .nav-link.active::after {
@@ -266,12 +295,53 @@
         }
 
         .glass-card {
-            background: var(--king-slate);
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(25px) saturate(140%);
+            -webkit-backdrop-filter: blur(25px) saturate(140%);
             border-radius: 30px;
             border: 1px solid var(--king-border);
             padding: 35px;
             margin-bottom: 30px;
             box-shadow: var(--shadow-lg);
+            animation: rgb-glow 10s infinite alternate;
+        }
+
+        /* --- LOBBY GRID DESIGN --- */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .lobby-card {
+            min-height: 240px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .lobby-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .lobby-card .main-icon {
+            position: absolute;
+            right: -15px;
+            bottom: -15px;
+            font-size: 130px !important;
+            opacity: 0.15;
+            transform: rotate(-15deg);
+            transition: 0.5s ease;
+        }
+
+        .lobby-card:hover .main-icon {
+            opacity: 0.4;
+            transform: rotate(0deg) scale(1.1);
         }
 
         /* ==========================================================================
@@ -391,6 +461,7 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: 0.3s;
+            animation: rgb-glow 5s infinite;
         }
 
         .btn-bet {
@@ -559,6 +630,55 @@
                 font-size: 75px;
             }
         }
+
+        @media (max-width: 1024px) {
+            .game-main-wrapper {
+                flex-direction: column !important;
+                overflow-y: auto !important;
+            }
+
+            .side-history {
+                width: 100% !important;
+                border-left: none !important;
+                border-top: 1px solid var(--king-border);
+                height: 250px;
+                min-height: 250px;
+            }
+        }
+
+        /* --- NOTIFICATION SYSTEM --- */
+        #notification-area {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .king-toast {
+            background: var(--king-emerald);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+            animation: toastIn 0.5s ease forwards;
+            border-left: 5px solid #fff;
+        }
+
+        @keyframes toastIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -578,6 +698,8 @@
             }
         }
     </style>
+
+    <div id="notification-area"></div>
 
     <div id="auth-master">
         <div class="auth-portal">
@@ -612,29 +734,62 @@
             </div>
             <div class="nav-link" onclick="switchTab('withdraw', this)"><i class="fa fa-bank"></i><span>Withdraw</span>
             </div>
-            <div class="nav-link" onclick="switchTab('vip', this)"><i class="fa fa-crown"></i><span>VIP</span></div>
+            <div class="nav-link" onclick="switchTab('history', this)"><i class="fa fa-receipt"></i><span>History</span>
+            </div>
             <div class="nav-link" onclick="switchTab('support', this)"><i class="fa fa-headset"></i><span>Support</span>
             </div>
-            <div id="admin-nav" class="nav-link" style="display:none; color:var(--king-amber);"
-                onclick="switchTab('admin', this)"><i class="fa fa-lock"></i><span>Admin</span></div>
+            <div class="nav-link" onclick="switchTab('notif', this)"><i class="fa fa-bell"></i><span>Alerts</span>
+            </div>
         </nav>
 
         <main>
             <section id="tab-home" class="page-container active">
-                <div class="glass-card"
-                    style="background: linear-gradient(135deg, #4c0519 0%, #0f172a 100%); cursor:pointer;"
-                    onclick="launchAviator()">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="game-grid">
+                    <!-- Aviator Card -->
+                    <div class="glass-card lobby-card"
+                        style="background: linear-gradient(135deg, #4c0519 0%, #020617 100%); cursor:pointer;"
+                        onclick="launchAviator()">
                         <div>
                             <span
-                                style="background:var(--king-rose); padding:4px 12px; border-radius:5px; font-size:10px; font-weight:900; margin-bottom:10px; display:inline-block;">REAL
-                                TIME BETTING</span>
-                            <h2 style="font-family:'Orbitron'; font-size:35px; letter-spacing:2px;">AVIATOR PRO</h2>
+                                style="background:var(--king-rose); color:#fff; padding:5px 15px; border-radius:50px; font-size:10px; font-weight:900; margin-bottom:15px; display:inline-block; letter-spacing:1px;">POPULAR</span>
+                            <h2 style="font-family:'Orbitron'; font-size:32px; letter-spacing:2px; margin-bottom:10px;">
+                                AVIATOR PRO</h2>
                             <p style="color:var(--king-dim);">Provably fair. Max multiplier: 10,000x.</p>
                         </div>
-                        <i class="fa fa-paper-plane" style="font-size:80px; color:var(--king-rose); opacity:0.8;"></i>
+                        <i class="fa fa-paper-plane main-icon" style="color:var(--king-rose);"></i>
+                    </div>
+
+                    <!-- Chicken Card -->
+                    <div class="glass-card lobby-card"
+                        style="background: linear-gradient(135deg, #1e3a8a 0%, #020617 100%); cursor:pointer;"
+                        onclick="launchChicken()">
+                        <div>
+                            <span
+                                style="background:var(--king-amber); color:#000; padding:5px 15px; border-radius:50px; font-size:10px; font-weight:900; margin-bottom:15px; display:inline-block; letter-spacing:1px;">NEW
+                                GAME</span>
+                            <h2 style="font-family:'Orbitron'; font-size:32px; letter-spacing:2px; margin-bottom:10px;">
+                                CHICKEN ROAD</h2>
+                            <p style="color:var(--king-dim);">Find the chickens, avoid the bones. High risk.</p>
+                        </div>
+                        <i class="fa fa-drumstick-bite main-icon" style="color:var(--king-amber);"></i>
+                    </div>
+
+                    <!-- Scratch Card -->
+                    <div class="glass-card lobby-card"
+                        style="background: linear-gradient(135deg, #065f46 0%, #020617 100%); cursor:pointer;"
+                        onclick="launchScratch()">
+                        <div>
+                            <span
+                                style="background:var(--king-emerald); color:#fff; padding:5px 15px; border-radius:50px; font-size:10px; font-weight:900; margin-bottom:15px; display:inline-block; letter-spacing:1px;">INSTANT
+                                WIN</span>
+                            <h2 style="font-family:'Orbitron'; font-size:32px; letter-spacing:2px; margin-bottom:10px;">
+                                LUCKY SCRATCH</h2>
+                            <p style="color:var(--king-dim);">Match 3 symbols to win up to 100x instantly.</p>
+                        </div>
+                        <i class="fa fa-ticket-alt main-icon" style="color:var(--king-emerald);"></i>
                     </div>
                 </div>
+
                 <div class="glass-card">
                     <h3 style="margin-bottom:20px; font-family:'Orbitron'; color:var(--king-amber);"><i
                             class="fa fa-broadcast-tower"></i> LIVE WITHDRAWALS</h3>
@@ -660,8 +815,15 @@
                     </div>
                     <div
                         style="background:var(--king-void); border:2px dashed var(--king-amber); padding:35px; border-radius:25px; text-align:center; margin-bottom:30px;">
-                        <p style="font-size:12px; color:var(--king-dim); margin-bottom:10px;">OFFICIAL RECEIVER NUMBER:
-                        </p>
+                        <p style="font-size:14px; color:var(--king-amber); font-weight:800; margin-bottom:5px;">NAYAPAY
+                            / JAZZCASH / EASYPAISA</p>
+                        <p style="font-size:12px; color:var(--king-dim); margin-bottom:15px;">A/C TITLE: AYAZ KHAN</p>
+
+                        <div
+                            style="background: #fff; padding: 10px; display: inline-block; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);">
+                            <img src="https://quickchart.io/qr?text=03182452810&size=200&margin=1&ecLevel=H"
+                                alt="Payment QR" style="display: block; width: 160px; height: 160px;">
+                        </div>
                         <h1 style="color:var(--king-amber); font-family:'Roboto Mono'; letter-spacing:4px;"
                             onclick="copyNum('03182452810')">03182452810</h1>
                         <p style="font-size:11px; margin-top:10px; color:var(--king-emerald);">Tap to copy number. Send
@@ -678,20 +840,26 @@
                     <button class="heavy-btn btn-bet" style="height:70px;" onclick="submitDeposit()">SUBMIT
                         TRANSACTION</button>
                 </div>
-                <div id="my-deposits"></div>
             </section>
 
             <section id="tab-withdraw" class="page-container">
                 <div class="glass-card">
-                    <h2 style="font-family:'Orbitron';">CASH OUT</h2>
+                    <h2 style="font-family:'Orbitron'; margin-bottom:25px;">CASH OUT</h2>
                     <div class="k-input-group" style="margin-top:25px;">
                         <label class="k-label">Your Wallet</label>
                         <select id="wit-bank" class="k-field">
                             <option>EasyPaisa</option>
                             <option>JazzCash</option>
                             <option>SadaPay</option>
+                            <option>NayaPay</option>
                             <option>Meezan</option>
+                            <option>Allied Bank</option>
+
                         </select>
+                    </div>
+                    <div class="k-input-group">
+                        <label class="k-label">Account Holder Name</label>
+                        <input type="text" id="wit-name" class="k-field" placeholder="Full name on account">
                     </div>
                     <div class="k-input-group">
                         <label class="k-label">Account Number</label>
@@ -706,18 +874,41 @@
                 </div>
             </section>
 
-            <section id="tab-vip" class="page-container">
-                <div class="glass-card" style="text-align:center; padding:60px 35px;">
-                    <i class="fa fa-crown" style="font-size:80px; color:var(--king-amber); margin-bottom:20px;"></i>
-                    <h1 id="vip-title" style="font-family:'Orbitron'; letter-spacing:5px;">BRONZE RANK</h1>
-                    <div
-                        style="width:100%; height:20px; background:var(--king-void); border-radius:50px; margin:40px 0; border:1px solid var(--king-border); overflow:hidden;">
-                        <div id="vip-progress"
-                            style="width:10%; height:100%; background:linear-gradient(to right, var(--king-amber), #fff); transition:2s ease-in-out;">
-                        </div>
+            <section id="tab-history" class="page-container">
+                <div class="glass-card">
+                    <h2 style="margin-bottom:25px; font-family:'Orbitron'; color:var(--king-amber);">
+                        <i class="fa fa-receipt"></i> TRANSACTION HISTORY
+                    </h2>
+                    <div id="transaction-history-list">
+                        <p style="color:var(--king-dim); text-align:center; padding:20px;">No transactions found.</p>
                     </div>
-                    <p style="color:var(--king-dim);">Achieve Rs 10,000 turnover to reach <b style="color:#fff;">SILVER
-                            STATUS</b></p>
+                </div>
+            </section>
+
+            <style>
+                /* Theme specific overrides for White Mode */
+                .crash-pill {
+                    background: #e2e8f0 !important;
+                    color: #1e293b !important;
+                }
+
+                .msg-bubble.admin {
+                    background: #e2e8f0 !important;
+                    color: #1e293b !important;
+                }
+
+                .admin-req-card {
+                    border: 1px solid #e2e8f0;
+                }
+            </style>
+
+            <section id="tab-notif" class="page-container">
+                <div class="glass-card">
+                    <h2 style="margin-bottom:25px; font-family:'Orbitron';"><i class="fa fa-bell"></i> NOTIFICATIONS
+                    </h2>
+                    <div id="notif-list">
+                        <p style="color:var(--king-dim); text-align:center; padding:20px;">No recent alerts.</p>
+                    </div>
                 </div>
             </section>
 
@@ -777,39 +968,213 @@
                 onclick="closeAviator()"></i>
         </div>
         <div class="avi-history-bar" id="avi-logs"></div>
-        <div class="avi-world">
-            <div id="mult-val" class="multiplier-text">1.00x</div>
-            <i class="fa fa-plane-departure plane-sprite" id="avi-plane"></i>
-        </div>
-        <div class="bet-engine">
-            <div class="control-panel">
-                <input type="number" id="amt-1" value="100" class="k-field"
-                    style="text-align:center; height:55px; font-weight:900;">
-                <div class="quick-amounts">
-                    <button class="q-btn" onclick="setAmt(1,100)">100</button>
-                    <button class="q-btn" onclick="setAmt(1,500)">500</button>
-                    <button class="q-btn" onclick="setAmt(1,1000)">1000</button>
-                    <button class="q-btn" onclick="setAmt(1,5000)">5000</button>
+        <div style="display: flex; flex: 1; overflow: hidden;" class="game-main-wrapper">
+            <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+                <div class="avi-world">
+                    <div id="mult-val" class="multiplier-text">1.00x</div>
+                    <i class="fa fa-plane-departure plane-sprite" id="avi-plane"></i>
                 </div>
-                <button id="btn-bet-1" class="heavy-btn btn-bet" onclick="placeBet(1)">BET</button>
-                <button id="btn-cash-1" class="heavy-btn btn-cashout" style="display:none;" onclick="cashOut(1)">CASH
-                    OUT</button>
+                <div class="bet-engine">
+                    <div class="control-panel">
+                        <input type="number" id="amt-1" value="100" class="k-field"
+                            style="text-align:center; height:55px; font-weight:900;">
+                        <div class="quick-amounts"><button class="q-btn" onclick="setAmt(1,100)">100</button><button
+                                class="q-btn" onclick="setAmt(1,500)">500</button><button class="q-btn"
+                                onclick="setAmt(1,1000)">1000</button><button class="q-btn"
+                                onclick="setAmt(1,5000)">5000</button></div>
+                        <button id="btn-bet-1" class="heavy-btn btn-bet" onclick="placeBet(1)">BET</button>
+                        <button id="btn-cash-1" class="heavy-btn btn-cashout" style="display:none;"
+                            onclick="cashOut(1)">CASH OUT</button>
+                    </div>
+                    <div class="control-panel">
+                        <input type="number" id="amt-2" value="100" class="k-field"
+                            style="text-align:center; height:55px; font-weight:900;">
+                        <div class="quick-amounts"><button class="q-btn" onclick="setAmt(2,100)">100</button><button
+                                class="q-btn" onclick="setAmt(2,500)">500</button><button class="q-btn"
+                                onclick="setAmt(2,1000)">1000</button><button class="q-btn"
+                                onclick="setAmt(2,5000)">5000</button></div>
+                        <button id="btn-bet-2" class="heavy-btn btn-bet" onclick="placeBet(2)">BET</button>
+                        <button id="btn-cash-2" class="heavy-btn btn-cashout" style="display:none;"
+                            onclick="cashOut(2)">CASH OUT</button>
+                    </div>
+                </div>
             </div>
-            <div class="control-panel">
-                <input type="number" id="amt-2" value="100" class="k-field"
-                    style="text-align:center; height:55px; font-weight:900;">
-                <div class="quick-amounts">
-                    <button class="q-btn" onclick="setAmt(2,100)">100</button>
-                    <button class="q-btn" onclick="setAmt(2,500)">500</button>
-                    <button class="q-btn" onclick="setAmt(2,1000)">1000</button>
-                    <button class="q-btn" onclick="setAmt(2,5000)">5000</button>
+            <div style="width: 350px; background: #000; border-left: 1px solid var(--king-border); display: flex; flex-direction: column; padding: 25px;"
+                class="side-history">
+                <h4 style="color:var(--king-dim); font-size:12px; margin-bottom:15px; font-family:'Orbitron';">MY RECENT
+                    BETS</h4>
+                <div id="aviator-history-list" style="flex: 1; overflow-y: auto;">
+                    <p style="color:var(--king-dim); font-size:11px;">No bets this session.</p>
                 </div>
-                <button id="btn-bet-2" class="heavy-btn btn-bet" onclick="placeBet(2)">BET</button>
-                <button id="btn-cash-2" class="heavy-btn btn-cashout" style="display:none;" onclick="cashOut(2)">CASH
-                    OUT</button>
             </div>
         </div>
     </div>
+
+    <div id="chicken-system"
+        style="position:fixed; inset:0; background:#020617; z-index:6000; display:none; flex-direction:column; overflow-y:auto;">
+        <div class="avi-header" style="background:#1e3a8a;">
+            <div style="font-family:'Orbitron'; font-weight:900; color:#fff; font-size:25px;">CHICKEN ROAD</div>
+            <div style="font-family:'Roboto Mono'; font-weight:800; color:var(--king-amber); font-size:22px;">Rs. <span
+                    id="chk-bal">0</span></div>
+            <i class="fa fa-times-circle" style="font-size:40px; cursor:pointer; color:#fff;"
+                onclick="closeChicken()"></i>
+        </div>
+
+        <div style="display:flex; flex-wrap: wrap; justify-content: center; padding:20px; gap: 30px; flex:1;"
+            class="game-main-wrapper">
+            <div
+                style="display:flex; flex-direction:column; align-items:center; flex: 1; max-width: 500px; min-width: 320px;">
+                <div id="chk-grid"
+                    style="display:grid; grid-template-columns:repeat(5, 1fr); gap:10px; width:100%; max-width:400px; margin-top:20px;">
+                    <!-- 25 Tiles generated by JS -->
+                </div>
+
+                <div class="glass-card" style="width:100%; margin-top:30px; padding:25px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span style="color:var(--king-dim); font-size:12px;">BET AMOUNT</span>
+                        <span id="chk-next-win" style="color:var(--king-emerald); font-weight:bold;">Next: 0.00x</span>
+                    </div>
+                    <input type="number" id="chk-amt" value="100" class="k-field"
+                        style="text-align:center; margin-bottom:15px;">
+                    <div style="margin-bottom:15px;">
+                        <label class="k-label">Bones (Difficulty)</label>
+                        <select id="chk-bones" class="k-field" onchange="updateChickenNext()">
+                            <option value="1">1 Bone</option>
+                            <option value="3" selected>3 Bones</option>
+                            <option value="5">5 Bones</option>
+                            <option value="10">10 Bones</option>
+                            <option value="20">20 Bones</option>
+                        </select>
+                    </div>
+                    <button id="chk-btn-start" class="heavy-btn btn-bet" onclick="startChicken()">START GAME</button>
+                    <button id="chk-btn-cash" class="heavy-btn btn-cashout" style="display:none;"
+                        onclick="cashOutChicken()">CASH OUT (Rs 0)</button>
+                </div>
+            </div>
+
+            <div style="width: 350px;" class="side-history">
+                <div class="glass-card"
+                    style="height: 100%; margin: 0; padding:25px; display:flex; flex-direction:column;">
+                    <h4 style="color:var(--king-amber); font-size:12px; margin-bottom:15px; font-family:'Orbitron';">
+                        CHICKEN HISTORY</h4>
+                    <div id="chicken-history-list" style="flex: 1; overflow-y: auto;">
+                        <p style="color:var(--king-dim); font-size:11px; text-align:center;">Play to see history.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scratch-system"
+        style="position:fixed; inset:0; background:#020617; z-index:7000; display:none; flex-direction:column; overflow-y:auto;">
+        <div class="avi-header" style="background:#065f46;">
+            <div style="font-family:'Orbitron'; font-weight:900; color:#fff; font-size:25px;">LUCKY SCRATCH</div>
+            <div style="font-family:'Roboto Mono'; font-weight:800; color:var(--king-amber); font-size:22px;">Rs. <span
+                    id="scr-bal">0</span></div>
+            <i class="fa fa-times-circle" style="font-size:40px; cursor:pointer; color:#fff;"
+                onclick="closeScratch()"></i>
+        </div>
+
+        <div style="display:flex; flex-wrap: wrap; justify-content: center; padding:20px; gap: 30px; flex:1;"
+            class="game-main-wrapper">
+            <div
+                style="display:flex; flex-direction:column; align-items:center; flex: 1; max-width: 500px; min-width: 320px;">
+                <div id="scr-grid"
+                    style="display:grid; grid-template-columns:repeat(3, 1fr); gap:15px; width:100%; max-width:400px; margin-top:20px;">
+                    <!-- 9 Slots generated by JS -->
+                </div>
+
+                <div class="glass-card" style="width:100%; margin-top:30px; padding:25px; text-align: center;">
+                    <div style="margin-bottom:20px;">
+                        <label class="k-label">CARD PRICE (BET)</label>
+                        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                            <button class="q-btn" onclick="setScrAmt(100)">100</button>
+                            <button class="q-btn" onclick="setScrAmt(500)">500</button>
+                            <button class="q-btn" onclick="setScrAmt(1000)">1k</button>
+                        </div>
+                        <input type="number" id="scr-amt" value="100" class="k-field"
+                            style="text-align:center; margin-top:15px; font-weight: 800;">
+                    </div>
+                    <div style="margin-bottom:20px; text-align: left;">
+                        <label class="k-label">Target Multiplier (Win Probability)</label>
+                        <select id="scr-risk-level" class="k-field">
+                            <option value="0.6">1.50x (High Win Chance)</option>
+                            <option value="0.4" selected>2.00x (Medium Win Chance)</option>
+                            <option value="0.15">10.00x (Low Win Chance)</option>
+                            <option value="0.05">50.00x (Extreme Risk)</option>
+                        </select>
+                    </div>
+                    <button id="scr-btn-buy" class="heavy-btn btn-bet" onclick="buyScratchCard()">BUY NEW CARD</button>
+                    <p id="scr-status" style="margin-top: 15px; color: var(--king-dim); font-size: 13px;">Purchase a
+                        card to start scratching!</p>
+                </div>
+            </div>
+
+            <div style="width: 350px;" class="side-history">
+                <div class="glass-card"
+                    style="height: 100%; margin: 0; padding:25px; display:flex; flex-direction:column;">
+                    <h4 style="color:var(--king-emerald); font-size:12px; margin-bottom:15px; font-family:'Orbitron';">
+                        SCRATCH HISTORY</h4>
+                    <div id="scratch-history-list" style="flex: 1; overflow-y: auto;">
+                        <p style="color:var(--king-dim); font-size:11px; text-align:center;">No cards scratched yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .scr-slot {
+            aspect-ratio: 1/1;
+            background: linear-gradient(135deg, #334155, #1e293b);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .scr-slot.revealed {
+            background: rgba(255, 255, 255, 0.05);
+            cursor: default;
+            transform: rotateY(180deg);
+            box-shadow: none;
+            border-color: var(--king-emerald);
+        }
+
+        .scr-slot i {
+            transition: 0.3s;
+        }
+    </style>
+
+    <style>
+        .chk-tile {
+            aspect-ratio: 1/1;
+            background: #1e293b;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .chk-tile:hover {
+            background: #334155;
+        }
+
+        .chk-tile.revealed {
+            cursor: default;
+        }
+    </style>
+
+    <audio id="crash-sound" src="https://actions.google.com/sounds/v1/foley/glass_shatter.ogg" preload="auto"></audio>
 
     <script>
         // --- DATABASE CONFIGURATION ---
@@ -825,7 +1190,14 @@
         const db = firebase.database();
 
         // --- APP STATE ---
-        let UID, UNAME, WALLET = 0, ACTIVE_GAME = false, MULT = 1.0, LOOP, S1 = 0, S2 = 0, CURRENT_CHAT_UID = null;
+        let UID, UNAME, WALLET = 0, LAST_BAL = -1, ACTIVE_GAME = false, MULT = 1.0, S1 = 0, S2 = 0, CURRENT_CHAT_UID = null;
+        // Aviator specific state
+        let gameCounter = 0; // Tracks number of Aviator rounds played
+        let SCR_ACTIVE = false, SCR_STAKE = 0, SCR_REVEALED = 0, SCR_SYMBOLS = [];
+        let aviatorGameLoopInterval = null; // Manages the 5-second gap and starting rounds
+        let CHK_ACTIVE = false, CHK_STAKE = 0, CHK_BONES = [], CHK_COUNT = 0, CHK_MULT = 1.0;
+        let aviatorRoundInterval = null; // Manages the multiplier increase during a round
+        let aviatorCountdownInterval = null; // Manages the 5-second countdown display
 
         // --- AUTH ENGINE ---
         function handleLogin() {
@@ -855,18 +1227,35 @@
                 document.getElementById('main-application').style.display = 'block';
 
                 db.ref('users/' + UID + '/balance').on('value', snap => {
-                    WALLET = snap.val() || 0;
+                    const newVal = snap.val() || 0;
+                    if (LAST_BAL !== -1 && newVal > LAST_BAL) {
+                        showNotification(`💰 PAYMENT RECEIVED: PKR ${newVal - LAST_BAL}`);
+                    }
+                    WALLET = newVal;
+                    LAST_BAL = WALLET;
                     document.getElementById('display-bal').innerText = WALLET.toLocaleString();
                     document.getElementById('avi-bal').innerText = WALLET.toLocaleString();
+                    document.getElementById('chk-bal').innerText = WALLET.toLocaleString();
+                    document.getElementById('scr-bal').innerText = WALLET.toLocaleString();
                 });
 
-                syncChat();
                 syncMyRequests();
+                syncGameHistory('aviator', 'aviator-history-list');
+                syncGameHistory('chicken', 'chicken-history-list');
+                syncGameHistory('scratch', 'scratch-history-list');
                 if (localStorage.getItem('king_adm_access') === 'true') {
-                    document.getElementById('admin-nav').style.display = 'block';
+                    const nav = document.querySelector('.side-nav');
+                    const adm = document.createElement('div');
+                    adm.id = 'admin-nav';
+                    adm.className = 'nav-link';
+                    adm.style.color = 'var(--king-amber)';
+                    adm.innerHTML = '<i class="fa fa-lock"></i><span>Admin</span>';
+                    adm.onclick = function () { switchTab('admin', this); };
+                    nav.appendChild(adm);
                     syncAdminSystem();
                 }
             }
+            syncChat(); // Sync chat regardless of login status, or move it inside the if(UID) block if chat is only for logged in users
             document.getElementById('king-loader').style.display = 'none';
             fakeWithdrawals();
         }
@@ -880,24 +1269,46 @@
         }
 
         // --- FINANCE LOGIC ---
+        let _REQ_CACHE = {};
         function submitDeposit() {
             const amt = parseInt(document.getElementById('dep-amt').value);
             const tid = document.getElementById('dep-tid').value.trim();
             if (amt < 100 || !tid) return alert("Invalid Details!");
-            db.ref('requests').push({ uid: UID, user: UNAME, amount: amt, tid: tid, bank: document.getElementById('dep-bank').value, type: 'DEPOSIT', status: 'PENDING', time: Date.now() });
+            db.ref('requests').push({ uid: UID, user: UNAME, amount: amt, tid: tid, bank: document.getElementById('dep-bank').value, type: 'DEPOSIT', status: 'PENDING', time: Date.now(), notified: false });
             alert("Sent! Please wait for Admin approval.");
         }
         function submitWithdraw() {
             const amt = parseInt(document.getElementById('wit-amt').value);
             if (amt < 500 || amt > WALLET) return alert("Insufficient Balance!");
+            const name = document.getElementById('wit-name').value.trim();
+            if (amt < 500 || amt > WALLET || !name) return alert("Please enter Account Holder Name and a valid amount!");
+
             db.ref('users/' + UID).update({ balance: WALLET - amt });
-            db.ref('requests').push({ uid: UID, user: UNAME, amount: amt, num: document.getElementById('wit-num').value, bank: document.getElementById('wit-bank').value, type: 'WITHDRAW', status: 'PENDING', time: Date.now() });
+            db.ref('requests').push({ uid: UID, user: UNAME, amount: amt, holder: name, num: document.getElementById('wit-num').value, bank: document.getElementById('wit-bank').value, type: 'WITHDRAW', status: 'PENDING', time: Date.now(), notified: false });
             alert("Withdrawal request submitted.");
         }
         function syncMyRequests() {
             db.ref('requests').on('value', s => {
-                const box = document.getElementById('my-deposits'); box.innerHTML = '<h4 style="margin:20px 0 10px;">HISTORY</h4>';
-                s.forEach(o => { if (o.val().uid === UID) box.innerHTML += `<div class="glass-card" style="padding:15px; font-size:12px;"><b>${o.val().type}</b> Rs ${o.val().amount} <span style="float:right; color:var(--king-amber);">${o.val().status}</span></div>`; });
+                const box = document.getElementById('transaction-history-list'); box.innerHTML = "";
+                s.forEach(o => {
+                    if (o.val().uid === UID) {
+                        const r = o.val();
+                        // Notification Trigger on Status Change
+                        if (r.status !== 'PENDING' && r.notified === false) {
+                            const icon = r.status === 'APPROVED' ? '✅' : '❌';
+                            showNotification(`${icon} ${r.type} OF PKR ${r.amount} IS ${r.status}`);
+                            db.ref('requests/' + o.key).update({ notified: true });
+                        }
+
+                        const statusColor = r.status === 'APPROVED' ? 'var(--king-emerald)' : (r.status === 'REJECTED' ? 'var(--king-rose)' : 'var(--king-amber)');
+                        const icon = r.type === 'DEPOSIT' ? 'fa-plus-circle' : 'fa-minus-circle';
+
+                        box.innerHTML = `<div class="glass-card" style="padding:20px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); border-left: 4px solid ${statusColor};">
+                            <div><i class="fa ${icon}" style="margin-right:10px; color:var(--king-dim);"></i><b>${r.type}</b><br><small style="color:var(--king-dim)">${new Date(r.time).toLocaleDateString()} ${r.bank}</small></div>
+                            <div style="text-align:right;"><span style="font-weight:bold; font-size:16px;">Rs ${r.amount}</span><br><span style="color:${statusColor}; font-size:10px; font-weight:900;">${r.status}</span></div>
+                        </div>` + box.innerHTML;
+                    }
+                });
             });
         }
 
@@ -917,48 +1328,126 @@
         }
 
         // --- AVIATOR GAME ENGINE ---
-        function launchAviator() { document.getElementById('aviator-system').style.display = 'flex'; }
-        function closeAviator() { if (!ACTIVE_GAME) document.getElementById('aviator-system').style.display = 'none'; }
+        function launchAviator() { // This function is called when the user clicks on the Aviator game card
+            document.getElementById('aviator-system').style.display = 'flex';
+            document.getElementById('crash-sound').load(); // Warm up the audio on click
+            // Start the game loop only if it's not already running
+            if (!aviatorGameLoopInterval) {
+                aviatorGameLoopInterval = setInterval(manageAviatorGameLoop, 1000); // Check every second if a new round can start
+            }
+        }
+        function closeAviator() {
+            document.getElementById('aviator-system').style.display = 'none';
+            if (aviatorGameLoopInterval) { clearInterval(aviatorGameLoopInterval); aviatorGameLoopInterval = null; }
+            if (aviatorRoundInterval) { clearInterval(aviatorRoundInterval); aviatorRoundInterval = null; }
+            if (aviatorCountdownInterval) { clearInterval(aviatorCountdownInterval); aviatorCountdownInterval = null; }
+            ACTIVE_GAME = false;
+            MULT = 1.0;
+            S1 = 0; S2 = 0;
+            gameCounter = 0;
+            document.getElementById('mult-val').style.color = '#fff';
+            document.getElementById('mult-val').innerText = '1.00x';
+            document.getElementById('avi-plane').style.bottom = '20%';
+            document.getElementById('avi-plane').style.left = '15%';
+            resetAviUI();
+        }
         function setAmt(s, v) { document.getElementById('amt-' + s).value = v; }
+
+        function manageAviatorGameLoop() {
+            // If a game is active or a countdown is already running, do nothing
+            if (ACTIVE_GAME || aviatorCountdownInterval) {
+                return;
+            }
+
+            // Reset UI for next round immediately before countdown
+            document.getElementById('mult-val').style.color = '#fff';
+            document.getElementById('mult-val').innerText = '1.00x';
+            document.getElementById('avi-plane').style.bottom = '20%';
+            document.getElementById('avi-plane').style.left = '15%';
+            resetAviUI(); // Reset bet buttons
+
+            // Start 5-second countdown
+            let countdown = 5;
+            document.getElementById('mult-val').innerText = `NEXT IN ${countdown}s`;
+            aviatorCountdownInterval = setInterval(() => {
+                countdown--;
+                document.getElementById('mult-val').innerText = `NEXT IN ${countdown}s`;
+                if (countdown <= 0) {
+                    clearInterval(aviatorCountdownInterval);
+                    aviatorCountdownInterval = null; // Clear the countdown interval ID
+                    startNewAviatorRound();
+                }
+            }, 1000);
+        }
 
         function placeBet(s) {
             const val = parseInt(document.getElementById('amt-' + s).value);
-            if (val > WALLET) return alert("Low Balance!");
+            if (val > WALLET || val <= 0) return alert("Invalid bet amount or Low Balance!");
             db.ref('users/' + UID).update({ balance: WALLET - val });
             if (s === 1) S1 = val; else S2 = val;
             document.getElementById('btn-bet-' + s).style.display = 'none';
-            document.getElementById('btn-cash-' + s).style.display = 'block';
-            if (!ACTIVE_GAME) startRound();
+            document.getElementById('btn-cash-' + s).style.display = 'block'; // Bet is placed for the current/next round
         }
 
-        function startRound() {
-            ACTIVE_GAME = true; MULT = 1.0;
-            const crash = (Math.random() * 3 + 1.1).toFixed(2);
-            LOOP = setInterval(() => {
-                MULT += 0.04;
+        function startNewAviatorRound() {
+            gameCounter++;
+            let crash;
+
+            if (gameCounter % 20 === 0) {
+                // Every 20th game, crash above 2x (e.g., 2.1x to 10x)
+                crash = (Math.random() * (10 - 2.1) + 2.1);
+            } else if (gameCounter % 10 === 0) {
+                // Every 10th game (but not 20th), crash at 2x
+                crash = 2.00;
+            } else {
+                // Otherwise, crash below 2x (e.g., 1.1x to 1.99x)
+                crash = (Math.random() * (1.99 - 1.1) + 1.1);
+            }
+            crash = parseFloat(crash.toFixed(2)); // Ensure 2 decimal places
+
+            if (crash < 1.01) crash = 1.01; // Minimum crash value
+
+            ACTIVE_GAME = true;
+            MULT = 1.0;
+            document.getElementById('mult-val').innerText = '1.00x'; // Reset multiplier display
+
+            aviatorRoundInterval = setInterval(() => {
+                MULT += 0.01; // Slower increment
                 document.getElementById('mult-val').innerText = MULT.toFixed(2) + 'x';
                 const p = document.getElementById('avi-plane');
-                p.style.bottom = (20 + (MULT - 1) * 15) + '%'; p.style.left = (15 + (MULT - 1) * 15) + '%';
+                // Adjust plane movement for slower speed
+                p.style.bottom = (20 + (MULT - 1) * 8) + '%';
+                p.style.left = (15 + (MULT - 1) * 8) + '%';
 
                 if (MULT >= crash) {
-                    clearInterval(LOOP); ACTIVE_GAME = false;
+                    clearInterval(aviatorRoundInterval);
+                    aviatorRoundInterval = null;
+                    ACTIVE_GAME = false;
+                    if (S1 > 0) saveHistory('aviator', S1, crash, 'LOST');
+                    if (S2 > 0) saveHistory('aviator', S2, crash, 'LOST');
+                    const sfx = document.getElementById('crash-sound');
+                    if (sfx) {
+                        sfx.currentTime = 0; // Restart sound
+                        sfx.play().catch(err => console.error("Audio playback failed:", err));
+                    }
                     document.getElementById('mult-val').style.color = 'var(--king-rose)';
                     const log = document.getElementById('avi-logs');
                     log.innerHTML = `<span class="crash-pill">${crash}x</span>` + log.innerHTML;
-                    setTimeout(() => {
-                        document.getElementById('mult-val').style.color = '#fff';
-                        document.getElementById('mult-val').innerText = '1.00x';
-                        p.style.bottom = '20%'; p.style.left = '15%';
-                        resetAviUI();
-                        S1 = 0; S2 = 0;
-                    }, 2500);
+                    // The manageAviatorGameLoop will automatically pick up that ACTIVE_GAME is false
+                    // and start the 5-second countdown for the next round.
                 }
-            }, 100);
+            }, 150); // Slower interval
         }
 
         function cashOut(s) {
             let stake = (s === 1) ? S1 : S2; if (stake <= 0) return;
             const win = Math.floor(stake * MULT);
+            saveHistory('aviator', stake, MULT.toFixed(2), 'WIN');
+            // Only allow cash out if a game is active and multiplier is increasing
+            if (!ACTIVE_GAME || !aviatorRoundInterval) {
+                alert("Cannot cash out when game is not active or has crashed.");
+                return;
+            }
             db.ref('users/' + UID).update({ balance: WALLET + win });
             if (s === 1) S1 = 0; else S2 = 0;
             document.getElementById('btn-cash-' + s).innerText = "WIN Rs " + win;
@@ -970,11 +1459,236 @@
         }
         function resetAviUI() {
             document.getElementById('btn-bet-1').style.display = 'block'; document.getElementById('btn-cash-1').style.display = 'none';
-            document.getElementById('btn-bet-2').style.display = 'block'; document.getElementById('btn-cash-2').style.display = 'none';
+            document.getElementById('btn-bet-2').style.display = 'block'; document.getElementById('btn-cash-2').style.display = 'none'; // Reset both bet buttons
+            S1 = 0; S2 = 0; // Reset stakes
+        }
+
+        // --- CHICKEN ROAD ENGINE ---
+        function launchChicken() { document.getElementById('chicken-system').style.display = 'flex'; initChickenGrid(); }
+        function closeChicken() { document.getElementById('chicken-system').style.display = 'none'; CHK_ACTIVE = false; }
+
+        function initChickenGrid() {
+            const g = document.getElementById('chk-grid'); g.innerHTML = "";
+            for (let i = 0; i < 25; i++) {
+                g.innerHTML += `<div class="chk-tile" id="tile-${i}" onclick="revealChicken(${i})"><i class="fa fa-question" style="opacity:0.2"></i></div>`;
+            }
+            updateChickenNext();
+        }
+
+        function updateChickenNext() {
+            if (CHK_ACTIVE) return;
+            const bones = parseInt(document.getElementById('chk-bones').value);
+            const target = parseFloat(document.getElementById('chk-risk-target').value);
+            const m = (0.97 / ((25 - bones) / 25)).toFixed(2);
+            const stepsNeeded = Math.ceil(Math.log(target) / Math.log(0.98 / ((25 - bones) / 25)));
+            document.getElementById('chk-next-win').innerText = `Goal: ${target}x (Need ${stepsNeeded} Steps)`;
+        }
+
+        function startChicken() {
+            const amt = parseInt(document.getElementById('chk-amt').value);
+            if (amt > WALLET || amt < 10) return alert("Invalid Balance");
+
+            db.ref('users/' + UID).update({ balance: WALLET - amt });
+            CHK_ACTIVE = true; CHK_STAKE = amt; CHK_COUNT = 0; CHK_MULT = 1.0;
+
+            // Generate Bones
+            CHK_BONES = [];
+            const boneCount = parseInt(document.getElementById('chk-bones').value);
+            while (CHK_BONES.length < boneCount) {
+                let r = Math.floor(Math.random() * 25);
+                if (!CHK_BONES.includes(r)) CHK_BONES.push(r);
+            }
+
+            document.getElementById('chk-btn-start').style.display = 'none';
+            document.getElementById('chk-btn-cash').style.display = 'block';
+            document.getElementById('chk-btn-cash').innerText = `CASH OUT (Rs 0)`;
+            initChickenGrid();
+        }
+
+        function revealChicken(i) {
+            if (!CHK_ACTIVE) return;
+            const t = document.getElementById(`tile-${i}`);
+            if (t.classList.contains('revealed')) return;
+
+            t.classList.add('revealed');
+            if (CHK_BONES.includes(i)) {
+                // LOSE
+                t.innerHTML = `<i class="fa fa-bone" style="color:var(--king-rose)"></i>`;
+                t.style.background = "rgba(255,45,85,0.2)";
+                saveHistory('chicken', CHK_STAKE, CHK_MULT.toFixed(2), 'LOST');
+                CHK_ACTIVE = false;
+                setTimeout(() => { alert("BOOM! You hit a bone."); resetChickenUI(); }, 500);
+            } else {
+                // WIN STEP
+                t.innerHTML = `<i class="fa fa-drumstick-bite" style="color:var(--king-amber)"></i>`;
+                t.style.background = "rgba(251,191,36,0.2)";
+                CHK_COUNT++;
+                const bones = CHK_BONES.length;
+                // Probability-based multiplier
+                const prob = (25 - bones - (CHK_COUNT - 1)) / (25 - (CHK_COUNT - 1));
+                CHK_MULT = CHK_MULT * (0.98 / prob);
+
+                document.getElementById('chk-btn-cash').innerText = `CASH OUT (Rs ${Math.floor(CHK_STAKE * CHK_MULT)})`;
+                document.getElementById('chk-next-win').innerText = `Next: ${CHK_MULT.toFixed(2)}x`;
+            }
+        }
+
+        function cashOutChicken() {
+            if (!CHK_ACTIVE || CHK_COUNT === 0) return;
+            const win = Math.floor(CHK_STAKE * CHK_MULT);
+            db.ref('users/' + UID).update({ balance: WALLET + win });
+            saveHistory('chicken', CHK_STAKE, CHK_MULT.toFixed(2), 'WIN');
+            alert(`WINNER! You cashed out Rs ${win}`);
+            CHK_ACTIVE = false;
+            resetChickenUI();
+        }
+
+        function resetChickenUI() {
+            document.getElementById('chk-btn-start').style.display = 'block';
+            document.getElementById('chk-btn-cash').style.display = 'none';
+        }
+
+        // --- LUCKY SCRATCH ENGINE ---
+        function launchScratch() { document.getElementById('scratch-system').style.display = 'flex'; initScratchGrid(); }
+        function closeScratch() { document.getElementById('scratch-system').style.display = 'none'; SCR_ACTIVE = false; }
+        function setScrAmt(v) { document.getElementById('scr-amt').value = v; }
+
+        function initScratchGrid() {
+            const g = document.getElementById('scr-grid'); g.innerHTML = "";
+            for (let i = 0; i < 9; i++) {
+                g.innerHTML += `<div class="scr-slot" id="scr-${i}" onclick="revealScratch(${i})"><i class="fa fa-gift" style="opacity:0.3; font-size: 24px;"></i></div>`;
+            }
+        }
+
+        const SCR_CONFIG = [
+            { icon: '🍒', mult: 2, weight: 50 },
+            { icon: '🍋', mult: 5, weight: 25 },
+            { icon: '💎', mult: 10, weight: 15 },
+            { icon: '7️⃣', mult: 50, weight: 7 },
+            { icon: '👑', mult: 100, weight: 3 }
+        ];
+        // Weights now sum to 100
+
+        function buyScratchCard() {
+            const amt = parseInt(document.getElementById('scr-amt').value);
+            if (amt > WALLET || amt < 100) return alert("Min bet Rs 100");
+
+            db.ref('users/' + UID).update({ balance: WALLET - amt });
+            SCR_ACTIVE = true; SCR_STAKE = amt; SCR_REVEALED = 0;
+            document.getElementById('scr-btn-buy').disabled = true;
+            document.getElementById('scr-btn-buy').style.opacity = "0.5";
+            const targetText = document.getElementById('scr-risk-level').options[document.getElementById('scr-risk-level').selectedIndex].text;
+            document.getElementById('scr-status').innerText = `Target: ${targetText}. Scratch 3!`;
+
+            // Generate 9 symbols
+            SCR_SYMBOLS = [];
+            // Deciding if this card is a winner based on selected Risk Level
+            const winProb = parseFloat(document.getElementById('scr-risk-level').value);
+            const isWinner = Math.random() < winProb;
+
+            let winSym = SCR_CONFIG[Math.floor(Math.random() * SCR_CONFIG.length)];
+
+            // If Extreme Risk is chosen, bias the win symbol towards higher multipliers
+            if (winProb < 0.1) winSym = SCR_CONFIG[Math.floor(Math.random() * 2) + 3];
+
+            for (let i = 0; i < 9; i++) {
+                if (isWinner && i < 3) {
+                    SCR_SYMBOLS.push(winSym);
+                } else {
+                    // Pick random symbol based on normalized weights
+                    let rand = Math.random() * 100;
+                    let cumulative = 0;
+                    for (let s of SCR_CONFIG) {
+                        cumulative += s.weight;
+                        if (rand <= cumulative) {
+                            SCR_SYMBOLS.push(s);
+                            break;
+                        }
+                    }
+                }
+            }
+            // Shuffle the symbols
+            SCR_SYMBOLS.sort(() => Math.random() - 0.5);
+            initScratchGrid();
+        }
+
+        function revealScratch(i) {
+            if (!SCR_ACTIVE) return;
+            const slot = document.getElementById(`scr-${i}`);
+            if (slot.classList.contains('revealed')) return;
+
+            slot.classList.add('revealed');
+            slot.innerHTML = `<span>${SCR_SYMBOLS[i].icon}</span>`;
+            SCR_REVEALED++;
+
+            if (SCR_REVEALED === 3) {
+                checkScratchResult();
+            }
+        }
+
+        function checkScratchResult() {
+            SCR_ACTIVE = false;
+            document.getElementById('scr-btn-buy').disabled = false;
+            document.getElementById('scr-btn-buy').style.opacity = "1";
+
+            const counts = {}; // Track how many of each icon we have
+            let winningSym = null;
+
+            // NEW: Only check symbols that were actually revealed by the user
+            for (let i = 0; i < 9; i++) {
+                const slot = document.getElementById(`scr-${i}`);
+                if (slot.classList.contains('revealed')) {
+                    const sym = SCR_SYMBOLS[i];
+                    counts[sym.icon] = (counts[sym.icon] || 0) + 1;
+                }
+            }
+
+            // Check if all 3 scratched cards are the same
+            for (const icon in counts) {
+                if (counts[icon] >= 3) {
+                    winningSym = SCR_CONFIG.find(c => c.icon === icon);
+                    break; // Found a winning match
+                }
+            }
+
+            // Auto-reveal the rest of the card so the user sees the full result
+            for (let i = 0; i < 9; i++) {
+                const slot = document.getElementById(`scr-${i}`);
+                if (!slot.classList.contains('revealed')) {
+                    slot.classList.add('revealed');
+                    slot.style.opacity = "0.4"; // Show unpicked cards as faint
+                    slot.innerHTML = `<span>${SCR_SYMBOLS[i].icon}</span>`;
+                }
+            }
+
+            if (winningSym) {
+                const win = SCR_STAKE * winningSym.mult;
+                db.ref('users/' + UID).update({ balance: WALLET + win });
+                saveHistory('scratch', SCR_STAKE, winningSym.mult + 'x', 'WIN');
+                document.getElementById('scr-status').innerHTML = `<b style="color:var(--king-emerald)">JACKPOT! Matched 3 ${winningSym.icon}. Won Rs ${win}</b>`;
+
+                // Visual highlight for winning slots
+                SCR_SYMBOLS.forEach((s, idx) => {
+                    if (s.icon === winningSym.icon) {
+                        document.getElementById(`scr-${idx}`).style.boxShadow = "0 0 20px var(--king-emerald)";
+                    }
+                });
+
+                const sfx = document.getElementById('crash-sound'); // Optional: Add specific win sound later
+                if (sfx) sfx.play();
+
+            } else {
+                saveHistory('scratch', SCR_STAKE, '0x', 'LOST');
+                document.getElementById('scr-status').innerHTML = `<b style="color:var(--king-rose)">No Luck! Better luck next time.</b>`;
+            }
         }
 
         // --- ADMIN READ/WRITE SYSTEM ---
-        function triggerAdmin() { if (prompt("MASTER CODE:") === 'ayaz786') { localStorage.setItem('king_adm_access', 'true'); location.reload(); } }
+        function triggerAdmin() {
+            const code = prompt("MASTER CODE:");
+            if (code === 'ayaz786') { localStorage.setItem('king_adm_access', 'true'); location.reload(); }
+            else if (code === 'hide') { localStorage.removeItem('king_adm_access'); location.reload(); }
+        }
 
         function syncAdminSystem() {
             // Financial Requests
@@ -982,9 +1696,17 @@
                 const list = document.getElementById('admin-requests-list'); list.innerHTML = "";
                 s.forEach(o => {
                     if (o.val().status === 'PENDING') {
+                        const r = o.val();
+                        const info = r.type === 'WITHDRAW'
+                            ? `<br><b>A/C Holder:</b> ${r.holder}<br><b>Number:</b> ${r.num}`
+                            : `<br><b>TID:</b> ${r.tid}`;
+
                         list.innerHTML += `<div class="admin-req-card">
-                            <div><b>${o.val().user}</b> [${o.val().type}]<br>Rs ${o.val().amount} (${o.val().bank})<br><small>${o.val().tid || o.val().num}</small></div>
-                            <div><button onclick="opReq('${o.key}','${o.val().uid}',${o.val().amount},'APP','${o.val().type}')" style="background:green; color:#fff; padding:10px; border-radius:8px;">Approve</button></div>
+                            <div><b>${r.user}</b> [${r.type}]<br>Rs ${r.amount} (${r.bank})${info}</div>
+                            <div style="display:flex; gap:10px;">
+                                <button onclick="opReq('${o.key}','${o.val().uid}',${o.val().amount},'APPROVED','${o.val().type}')" style="background:var(--king-emerald); color:#fff; padding:10px 15px; border-radius:8px; border:none; cursor:pointer; font-weight:bold;">Approve</button>
+                                <button onclick="opReq('${o.key}','${o.val().uid}',${o.val().amount},'REJECTED','${o.val().type}')" style="background:var(--king-rose); color:#fff; padding:10px 15px; border-radius:8px; border:none; cursor:pointer; font-weight:bold;">Reject</button>
+                            </div>
                         </div>`;
                     }
                 });
@@ -1026,11 +1748,63 @@
         }
 
         function opReq(k, u, a, op, t) {
-            if (t === 'DEPOSIT') db.ref('users/' + u + '/balance').transaction(x => (x || 0) + a);
-            db.ref('requests/' + k).update({ status: 'APPROVED' });
+            if (op === 'APPROVED') {
+                if (t === 'DEPOSIT') db.ref('users/' + u + '/balance').transaction(x => (x || 0) + a);
+                db.ref('requests/' + k).update({ status: 'APPROVED' });
+            } else {
+                if (t === 'WITHDRAW') db.ref('users/' + u + '/balance').transaction(x => (x || 0) + a);
+                db.ref('requests/' + k).update({ status: 'REJECTED' });
+            }
         }
 
         // --- UTILS ---
+        function saveHistory(game, amt, mult, status) {
+            if (!UID) return;
+            db.ref('users/' + UID + '/history/' + game).push({ amount: amt, multiplier: mult, status: status, time: Date.now() });
+        }
+        function syncGameHistory(game, containerId) {
+            db.ref('users/' + UID + '/history/' + game).limitToLast(20).on('value', s => {
+                const list = document.getElementById(containerId);
+                if (!list) return;
+                list.innerHTML = "";
+                let items = [];
+                s.forEach(o => { items.unshift(o.val()); });
+                if (items.length === 0) {
+                    list.innerHTML = '<p style="color:var(--king-dim); text-align:center; padding:20px;">No games played yet.</p>';
+                    return;
+                }
+                items.forEach(h => {
+                    const color = h.status === 'WIN' ? 'var(--king-emerald)' : 'var(--king-rose)';
+                    const icon = h.status === 'WIN' ? 'fa-arrow-up' : 'fa-arrow-down';
+                    list.innerHTML += `<div class="glass-card" style="padding:12px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:none; border-radius:15px;">
+                        <div><i class="fa ${icon}" style="color:${color}; margin-right:10px;"></i><b>${h.status}</b> <small style="color:var(--king-dim)">@ ${h.multiplier}x</small></div>
+                        <div style="text-align:right;"><span style="color:${color}; font-weight:bold;">${h.status === 'WIN' ? '+' : '-'} Rs ${h.amount}</span></div>
+                    </div>`;
+                });
+            });
+        }
+        function showNotification(msg) {
+            const area = document.getElementById('notification-area');
+            if (!area) return;
+
+            // Add to Alerts Tab List
+            const list = document.getElementById('notif-list');
+            if (list) {
+                if (list.innerHTML.includes("No recent alerts")) list.innerHTML = "";
+                const time = new Date().toLocaleTimeString();
+                const item = `<div class="glass-card" style="padding:15px; margin-bottom:10px; border-left:4px solid var(--king-emerald); background:rgba(16,185,129,0.1); display:grid; grid-template-columns: auto 1fr; gap:15px; align-items:center;">
+                    <i class="fa fa-bell" style="color:var(--king-emerald); font-size:20px;"></i>
+                    <div><small style="color:var(--king-dim)">${time}</small><br><b>${msg}</b></div>
+                </div>`;
+                list.innerHTML = item + list.innerHTML;
+            }
+
+            const toast = document.createElement('div');
+            toast.className = 'king-toast';
+            toast.innerHTML = `<i class="fa fa-check-circle"></i> ${msg}`;
+            area.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 4000);
+        }
         function copyNum(t) { navigator.clipboard.writeText(t); alert("Copied!"); }
         function fakeWithdrawals() {
             const f = document.getElementById('live-feed-box');
